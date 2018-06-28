@@ -51,8 +51,10 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../Teszt/main.cpp 
-OBJECTS       = main.o
+SOURCES       = ../Teszt/main.cpp \
+		../Teszt/namegenerator.cpp 
+OBJECTS       = main.o \
+		namegenerator.o
 DIST          = /opt/Qt/5.9/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt/5.9/gcc_64/mkspecs/common/unix.conf \
 		/opt/Qt/5.9/gcc_64/mkspecs/common/linux.conf \
@@ -188,6 +190,7 @@ DIST          = /opt/Qt/5.9/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt/5.9/gcc_64/mkspecs/features/qt_config.prf \
 		/opt/Qt/5.9/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/opt/Qt/5.9/gcc_64/mkspecs/features/spec_post.prf \
+		../Teszt/.qmake.stash \
 		/opt/Qt/5.9/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/opt/Qt/5.9/gcc_64/mkspecs/features/toolchain.prf \
 		/opt/Qt/5.9/gcc_64/mkspecs/features/default_pre.prf \
@@ -201,7 +204,8 @@ DIST          = /opt/Qt/5.9/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt/5.9/gcc_64/mkspecs/features/exceptions.prf \
 		/opt/Qt/5.9/gcc_64/mkspecs/features/yacc.prf \
 		/opt/Qt/5.9/gcc_64/mkspecs/features/lex.prf \
-		../Teszt/Teszt.pro  ../Teszt/main.cpp
+		../Teszt/Teszt.pro namegenerator.h ../Teszt/main.cpp \
+		../Teszt/namegenerator.cpp
 QMAKE_TARGET  = Teszt
 DESTDIR       = 
 TARGET        = Teszt
@@ -348,6 +352,7 @@ Makefile: ../Teszt/Teszt.pro /opt/Qt/5.9/gcc_64/mkspecs/linux-g++/qmake.conf /op
 		/opt/Qt/5.9/gcc_64/mkspecs/features/qt_config.prf \
 		/opt/Qt/5.9/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/opt/Qt/5.9/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/opt/Qt/5.9/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/opt/Qt/5.9/gcc_64/mkspecs/features/toolchain.prf \
 		/opt/Qt/5.9/gcc_64/mkspecs/features/default_pre.prf \
@@ -498,6 +503,7 @@ Makefile: ../Teszt/Teszt.pro /opt/Qt/5.9/gcc_64/mkspecs/linux-g++/qmake.conf /op
 /opt/Qt/5.9/gcc_64/mkspecs/features/qt_config.prf:
 /opt/Qt/5.9/gcc_64/mkspecs/linux-g++/qmake.conf:
 /opt/Qt/5.9/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /opt/Qt/5.9/gcc_64/mkspecs/features/exclusive_builds.prf:
 /opt/Qt/5.9/gcc_64/mkspecs/features/toolchain.prf:
 /opt/Qt/5.9/gcc_64/mkspecs/features/default_pre.prf:
@@ -555,8 +561,11 @@ compiler_clean:
 
 ####### Compile
 
-main.o: ../Teszt/main.cpp 
+main.o: ../Teszt/main.cpp ../Teszt/namegenerator.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Teszt/main.cpp
+
+namegenerator.o: ../Teszt/namegenerator.cpp ../Teszt/namegenerator.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o namegenerator.o ../Teszt/namegenerator.cpp
 
 ####### Install
 
