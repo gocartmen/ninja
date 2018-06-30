@@ -52,9 +52,13 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../Teszt/main.cpp \
-		../Teszt/namegenerator.cpp 
+		../Teszt/namegenerator.cpp \
+		../Teszt/maploader.cpp \
+		../Teszt/map.cpp 
 OBJECTS       = main.o \
-		namegenerator.o
+		namegenerator.o \
+		maploader.o \
+		map.o
 DIST          = /opt/Qt/5.9/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt/5.9/gcc_64/mkspecs/common/unix.conf \
 		/opt/Qt/5.9/gcc_64/mkspecs/common/linux.conf \
@@ -204,8 +208,12 @@ DIST          = /opt/Qt/5.9/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt/5.9/gcc_64/mkspecs/features/exceptions.prf \
 		/opt/Qt/5.9/gcc_64/mkspecs/features/yacc.prf \
 		/opt/Qt/5.9/gcc_64/mkspecs/features/lex.prf \
-		../Teszt/Teszt.pro namegenerator.h ../Teszt/main.cpp \
-		../Teszt/namegenerator.cpp
+		../Teszt/Teszt.pro namegenerator.h \
+		maploader.h \
+		map.h ../Teszt/main.cpp \
+		../Teszt/namegenerator.cpp \
+		../Teszt/maploader.cpp \
+		../Teszt/map.cpp
 QMAKE_TARGET  = Teszt
 DESTDIR       = 
 TARGET        = Teszt
@@ -561,11 +569,20 @@ compiler_clean:
 
 ####### Compile
 
-main.o: ../Teszt/main.cpp ../Teszt/namegenerator.h
+main.o: ../Teszt/main.cpp ../Teszt/namegenerator.h \
+		../Teszt/maploader.h \
+		../Teszt/map.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Teszt/main.cpp
 
 namegenerator.o: ../Teszt/namegenerator.cpp ../Teszt/namegenerator.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o namegenerator.o ../Teszt/namegenerator.cpp
+
+maploader.o: ../Teszt/maploader.cpp ../Teszt/maploader.h \
+		../Teszt/map.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o maploader.o ../Teszt/maploader.cpp
+
+map.o: ../Teszt/map.cpp ../Teszt/map.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o map.o ../Teszt/map.cpp
 
 ####### Install
 

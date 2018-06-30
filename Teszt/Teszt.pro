@@ -5,7 +5,11 @@ CONFIG -= qt
 
 SOURCES += \
         main.cpp \
-    namegenerator.cpp
+    namegenerator.cpp \
+    maploader.cpp \
+    map.cpp
 
 HEADERS += \
-    namegenerator.h
+    namegenerator.h \
+    maploader.h \
+    map.h

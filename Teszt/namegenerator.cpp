@@ -3,7 +3,7 @@
 NameGenerator::NameGenerator()
 {
     ifstream file;
-    file.open("input/tags.list");
+    file.open("tags.list");
 
     while (file.good()){
         char x;
