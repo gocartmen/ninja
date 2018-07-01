@@ -46,6 +46,11 @@ public:
     void findTokens();
 
     vector<pos> getStartPoint();
+    pos getHolySymbol() const;
+    vector<pos> getShurikens() const;
+    vector<portalPos> getPortals() const;
+    vector<pos> getBreakableWalls() const;
+    vector<pos> getUnbreakableWalls() const;
 };
 
 #endif // MAP_H

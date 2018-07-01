@@ -15,6 +15,7 @@ public:
     MapLoader();
 
     Map * getMap(int num);
+    int getMapCount() const;
 };
 
 #endif // MAPLOADER_H

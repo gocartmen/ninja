@@ -1,5 +1,10 @@
 #include "maploader.h"
 
+int MapLoader::getMapCount() const
+{
+    return mapCount;
+}
+
 MapLoader::MapLoader()
 {
     ifstream file;

@@ -37,13 +37,25 @@ void Engine::update()
             cout << "Map cannot be solved!" << endl;
         }
         do{
-            cout << "Do you wish to continue with next map? (y, n)" << endl;
-            cin >> answer;
-            if(toupper(answer[0]) == 'Y'){
-                isFinished = false;
-                mapSolvable = true;
-            }
-            if(toupper(answer[0]) == 'N'){
+            if(actualMapNum < mapLoader->getMapCount()){
+                cout << "Do you wish to continue with next map? (y, n)" << endl;
+                cin >> answer;
+                if(toupper(answer[0]) == 'Y'){
+                    isFinished = false;
+                    mapSolvable = true;
+                    actualMapNum++;
+                    delete ninjaData;
+                    //reinit some data
+                    actualMap = mapLoader->getMap(actualMapNum);
+
+                    ninjaData = new NinjaData(actualMap->getStartPoint()[0].x, actualMap->getStartPoint()[0].y);
+                    //----------------
+                }
+                if(toupper(answer[0]) == 'N'){
+                    state = false;
+                }
+            }else{
+                cout << "Played all maps! Exiting now!" << endl;
                 state = false;
             }
         }while(toupper(answer[0]) != 'Y' && toupper(answer[0]) != 'N');

@@ -5,6 +5,11 @@ vector<Map::pos> Map::getStartPoint()
     return startPoint;
 }
 
+pos Map::getHolySymbol() const
+{
+    return holySymbol;
+}
+
 Map::Map()
 {
 
