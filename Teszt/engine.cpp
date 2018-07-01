@@ -46,6 +46,6 @@ void Engine::update()
             if(toupper(answer[0]) == 'N'){
                 state = false;
             }
-        }while(toupper(answer[0]) != 'Y' || toupper(answer[0]) != 'N');
+        }while(toupper(answer[0]) != 'Y' && toupper(answer[0]) != 'N');
     }
 }
