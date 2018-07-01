@@ -1,18 +1,11 @@
 #include <iostream>
-#include "namegenerator.h"
-#include "maploader.h"
+#include "engine.h"
 
 using namespace std;
 
 int main()
 {
-    NameGenerator * nameGen = new NameGenerator();
-
-    string ninjaName = nameGen->generateName();
-
-    cout << "Your Ninja name is: " << ninjaName << endl;
-
-    MapLoader * maploader = new MapLoader();
+    Engine * engine = new Engine();
 
     return 0;
 }

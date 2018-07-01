@@ -7,9 +7,13 @@ SOURCES += \
         main.cpp \
     namegenerator.cpp \
     maploader.cpp \
-    map.cpp
+    map.cpp \
+    engine.cpp \
+    ninjadata.cpp
 
 HEADERS += \
     namegenerator.h \
     maploader.h \
-    map.h
+    map.h \
+    engine.h \
+    ninjadata.h
