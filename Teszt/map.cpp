@@ -48,7 +48,7 @@ void Map::findTokens()
     struct portalPos newPortalPos;
     for(int i=0;i<h;i++){
         for(int j=0;j<w;j++){
-            cout << "switch : ";
+            //cout << "switch : ";
             switch(map[i][j]){
                 case '@':{
                     //cout << "@" << endl;

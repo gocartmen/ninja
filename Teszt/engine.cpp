@@ -10,13 +10,9 @@ Engine::Engine()
 
     mapLoader = new MapLoader();
 
-    //cout << "1" << endl;
     actualMap = mapLoader->getMap(actualMapNum);
 
-    //cout << "2" << endl;
     ninjaData = new NinjaData(actualMap->getStartPoint()[0].x, actualMap->getStartPoint()[0].y);
-
-    //cout << "3" << endl;
 }
 
 void Engine::checkNextStep()
@@ -26,7 +22,6 @@ void Engine::checkNextStep()
 
 void Engine::update()
 {
-    //cout << "Is it updating? " << endl;
     string answer;
     while(state == true){
         while(isFinished == false){
