@@ -17,7 +17,24 @@ Engine::Engine()
 
 void Engine::checkNextStep()
 {
-
+    switch(ninjaData->getDirection()){
+        case 0:{
+            //south
+            break;
+        }
+        case 1:{
+            //east
+            break;
+        }
+        case 2:{
+            //north
+            break;
+        }
+        case 3:{
+            //west
+            break;
+        }
+    }
 }
 
 void Engine::update()

@@ -16,6 +16,11 @@ private:
 public:
     NinjaData();
     NinjaData(int x, int y);
+
+    int getDirection() const;
+    void setDirection(int value);
+    int getShurikens() const;
+    void setShurikens(int value);
 };
 
 #endif // NINJADATA_H

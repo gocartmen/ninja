@@ -10,6 +10,26 @@ pos Map::getHolySymbol() const
     return holySymbol;
 }
 
+vector<pos> Map::getShurikens() const
+{
+    return shurikens;
+}
+
+vector<portalPos> Map::getPortals() const
+{
+    return portals;
+}
+
+vector<pos> Map::getBreakableWalls() const
+{
+    return breakableWalls;
+}
+
+vector<pos> Map::getUnbreakableWalls() const
+{
+    return unbreakableWalls;
+}
+
 Map::Map()
 {
 
