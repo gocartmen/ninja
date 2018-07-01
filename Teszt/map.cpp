@@ -21,14 +21,14 @@ Map::Map(string filename)
     file.close();
 
     //test output
-    cout << "w: " << w << endl;
+    /*cout << "w: " << w << endl;
     cout << "h: " << h << endl << endl;
 
     for(int i=0;i<h;i++){
         cout << map[i] << endl;
     }
 
-    cout << endl;
+    cout << endl;*/
 }
 
 void Map::findTokens()
