@@ -12,13 +12,18 @@ private:
     MapLoader * mapLoader = NULL;
     NinjaData * ninjaData = NULL;
 
+    Map * actualMap = NULL;
+
     bool state = true;//solver run until state is true
 
-    int actualMap = 0;//first map to start
+    int actualMapNum = 0;//first map to start
     bool mapSolvable = true;//have to check if map is solvable
+
+    bool isFinished = false;
 public:
     Engine();
 
+    void checkNextStep();
     void update();
 };
 

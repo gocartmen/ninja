@@ -54,11 +54,15 @@ OBJECTS_DIR   = ./
 SOURCES       = ../Teszt/main.cpp \
 		../Teszt/namegenerator.cpp \
 		../Teszt/maploader.cpp \
-		../Teszt/map.cpp 
+		../Teszt/map.cpp \
+		../Teszt/engine.cpp \
+		../Teszt/ninjadata.cpp 
 OBJECTS       = main.o \
 		namegenerator.o \
 		maploader.o \
-		map.o
+		map.o \
+		engine.o \
+		ninjadata.o
 DIST          = /opt/Qt/5.9/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt/5.9/gcc_64/mkspecs/common/unix.conf \
 		/opt/Qt/5.9/gcc_64/mkspecs/common/linux.conf \
@@ -210,10 +214,14 @@ DIST          = /opt/Qt/5.9/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt/5.9/gcc_64/mkspecs/features/lex.prf \
 		../Teszt/Teszt.pro namegenerator.h \
 		maploader.h \
-		map.h ../Teszt/main.cpp \
+		map.h \
+		engine.h \
+		ninjadata.h ../Teszt/main.cpp \
 		../Teszt/namegenerator.cpp \
 		../Teszt/maploader.cpp \
-		../Teszt/map.cpp
+		../Teszt/map.cpp \
+		../Teszt/engine.cpp \
+		../Teszt/ninjadata.cpp
 QMAKE_TARGET  = Teszt
 DESTDIR       = 
 TARGET        = Teszt
@@ -569,9 +577,11 @@ compiler_clean:
 
 ####### Compile
 
-main.o: ../Teszt/main.cpp ../Teszt/namegenerator.h \
+main.o: ../Teszt/main.cpp ../Teszt/engine.h \
+		../Teszt/namegenerator.h \
 		../Teszt/maploader.h \
-		../Teszt/map.h
+		../Teszt/map.h \
+		../Teszt/ninjadata.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Teszt/main.cpp
 
 namegenerator.o: ../Teszt/namegenerator.cpp ../Teszt/namegenerator.h
@@ -583,6 +593,16 @@ maploader.o: ../Teszt/maploader.cpp ../Teszt/maploader.h \
 
 map.o: ../Teszt/map.cpp ../Teszt/map.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o map.o ../Teszt/map.cpp
+
+engine.o: ../Teszt/engine.cpp ../Teszt/engine.h \
+		../Teszt/namegenerator.h \
+		../Teszt/maploader.h \
+		../Teszt/map.h \
+		../Teszt/ninjadata.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o engine.o ../Teszt/engine.cpp
+
+ninjadata.o: ../Teszt/ninjadata.cpp ../Teszt/ninjadata.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ninjadata.o ../Teszt/ninjadata.cpp
 
 ####### Install
 

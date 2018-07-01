@@ -1,5 +1,10 @@
 #include "map.h"
 
+vector<Map::pos> Map::getStartPoint()
+{
+    return startPoint;
+}
+
 Map::Map()
 {
 
@@ -7,6 +12,11 @@ Map::Map()
 
 Map::Map(string filename)
 {
+    unbreakableWalls.reserve(400);
+    breakableWalls.reserve(400);
+    portals.reserve(200);
+    shurikens.reserve(400);
+
     ifstream file;
     file.open(filename.c_str());
 
@@ -16,6 +26,7 @@ Map::Map(string filename)
         map.push_back(data);
         h++;
     }
+    h--;//it gets one extra because of reading file
     w = map[0].length();
 
     file.close();
@@ -35,38 +46,44 @@ void Map::findTokens()
 {
     struct pos newPos;
     struct portalPos newPortalPos;
-    for(int i=0;i<w;i++){
-        for(int j=0;j<h;j++){
+    for(int i=0;i<h;i++){
+        for(int j=0;j<w;j++){
+            cout << "switch : ";
             switch(map[i][j]){
                 case '@':{
+                    //cout << "@" << endl;
                     newPos.x = i;
                     newPos.y = j;
                     startPoint.push_back(newPos);
                     break;
                 }
                 case '$':{
+                    //cout << "$" << endl;
                     holySymbol.x = i;
                     holySymbol.y = j;
                     break;
                 }
                 case '#':{
+                    //cout << "#" << endl;
                     newPos.x = i;
                     newPos.y = j;
                     unbreakableWalls.push_back(newPos);
                     break;
                 }
                 case 'X':{
+                    //cout << "X" << endl;
                     newPos.x = i;
                     newPos.y = j;
                     breakableWalls.push_back(newPos);
                     break;
                 }
                 case 'F':{
+                    //cout << "F" << endl;
                     if(Fbool == false){
                         newPortalPos.position[0].x = i;
                         newPortalPos.position[0].y = j;
                         int count = 0;
-                        for(int l=j;l<h;l++)
+                        for(int l=i;l<h;l++)
                         for(int k=0;k<w;k++){
                             if(map[k][l] == 'F'){
                                 count++;
@@ -82,11 +99,12 @@ void Map::findTokens()
                     break;
                 }
                 case 'G':{
+                    //cout << "G" << endl;
                     if(Gbool == false){
                         newPortalPos.position[0].x = i;
                         newPortalPos.position[0].y = j;
                         int count = 0;
-                        for(int l=j;l<h;l++)
+                        for(int l=i;l<h;l++)
                         for(int k=0;k<w;k++){
                             if(map[k][l] == 'G'){
                                 count++;
@@ -102,11 +120,12 @@ void Map::findTokens()
                     break;
                 }
                 case 'H':{
+                    //cout << "H" << endl;
                     if(Hbool == false){
                         newPortalPos.position[0].x = i;
                         newPortalPos.position[0].y = j;
                         int count = 0;
-                        for(int l=j;l<h;l++)
+                        for(int l=i;l<h;l++)
                         for(int k=0;k<w;k++){
                             if(map[k][l] == 'H'){
                                 count++;
@@ -122,11 +141,12 @@ void Map::findTokens()
                     break;
                 }
                 case 'I':{
+                    //cout << "I" << endl;
                     if(Ibool == false){
                         newPortalPos.position[0].x = i;
                         newPortalPos.position[0].y = j;
                         int count = 0;
-                        for(int l=j;l<h;l++)
+                        for(int l=i;l<h;l++)
                         for(int k=0;k<w;k++){
                             if(map[k][l] == 'I'){
                                 count++;
@@ -142,11 +162,12 @@ void Map::findTokens()
                     break;
                 }
                 case 'J':{
+                    //cout << "J" << endl;
                     if(Jbool == false){
                         newPortalPos.position[0].x = i;
                         newPortalPos.position[0].y = j;
                         int count = 0;
-                        for(int l=j;l<h;l++)
+                        for(int l=i;l<h;l++)
                         for(int k=0;k<w;k++){
                             if(map[k][l] == 'J'){
                                 count++;
@@ -162,11 +183,12 @@ void Map::findTokens()
                     break;
                 }
                 case 'K':{
+                    //cout << "K" << endl;
                     if(Kbool == false){
                         newPortalPos.position[0].x = i;
                         newPortalPos.position[0].y = j;
                         int count = 0;
-                        for(int l=j;l<h;l++)
+                        for(int l=i;l<h;l++)
                         for(int k=0;k<w;k++){
                             if(map[k][l] == 'K'){
                                 count++;
@@ -182,11 +204,12 @@ void Map::findTokens()
                     break;
                 }
                 case 'L':{
+                    //cout << "L" << endl;
                     if(Lbool == false){
                         newPortalPos.position[0].x = i;
                         newPortalPos.position[0].y = j;
                         int count = 0;
-                        for(int l=j;l<h;l++)
+                        for(int l=i;l<h;l++)
                         for(int k=0;k<w;k++){
                             if(map[k][l] == 'L'){
                                 count++;
@@ -202,6 +225,7 @@ void Map::findTokens()
                     break;
                 }
                 case '*':{
+                    //cout << "*" << endl;
                     newPos.x = i;
                     newPos.y = j;
                     shurikens.push_back(newPos);

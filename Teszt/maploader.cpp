@@ -14,10 +14,15 @@ MapLoader::MapLoader()
 
     file.close();
 
-    maps = new Map*[mapCount];
-    for(int i=0;i<mapCount;i++){
+    maps = new Map*[mapCount-1];
+    for(int i=0;i<mapCount-1;i++){
         maps[i] = new Map(mapnames[i]);
+        cout << "map : " << i << endl;
+        maps[i]->findTokens();
+        cout << "map tokens found!" << endl;
     }
+
+    cout << "111" << endl;
 }
 
 Map *MapLoader::getMap(int num)

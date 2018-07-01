@@ -10,11 +10,7 @@ using namespace std;
 
 class Map
 {
-private:
-    vector<string> map;
-    int w = 0;
-    int h = 0;
-
+public:
     struct pos{
         int x = 0;
         int y = 0;
@@ -22,6 +18,10 @@ private:
     struct portalPos{
         struct pos position[2];
     };
+private:
+    vector<string> map;
+    int w = 0;
+    int h = 0;
 
     vector<struct pos> unbreakableWalls;
     vector<struct pos> breakableWalls;
@@ -45,7 +45,7 @@ public:
 
     void findTokens();
 
-    vector<pos> getStartPoint() const;
+    vector<pos> getStartPoint();
 };
 
 #endif // MAP_H

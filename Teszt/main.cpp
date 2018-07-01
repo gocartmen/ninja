@@ -7,5 +7,7 @@ int main()
 {
     Engine * engine = new Engine();
 
+    engine->update();
+
     return 0;
 }
