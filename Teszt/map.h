@@ -14,9 +14,42 @@ private:
     vector<string> map;
     int w = 0;
     int h = 0;
+
+    struct pos{
+        int x = 0;
+        int y = 0;
+    };
+    struct portalPos{
+        struct pos position[2];
+    };
+    struct dir{
+        vector<struct pos> S;
+        vector<struct pos> E;
+        vector<struct pos> N;
+        vector<struct pos> W;
+    };
+
+    vector<struct pos> unbreakableWalls;
+    vector<struct pos> breakableWalls;
+
+    vector<struct portalPos> portals;
+    bool Fbool = false;
+    bool Gbool = false;
+    bool Hbool = false;
+    bool Ibool = false;
+    bool Jbool = false;
+    bool Kbool = false;
+    bool Lbool = false;
+
+    struct dir directionModifier;
+
+    vector<struct pos> startPoint;//this is vector because of later compatibility (if more ninjas)
+    struct pos holySymbol;
 public:
     Map();
     Map(string filename);
+
+    void findTokens();
 };
 
 #endif // MAP_H
