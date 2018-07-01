@@ -13,6 +13,8 @@ private:
     int mapCount = 0;
 public:
     MapLoader();
+
+    Map * getMap(int num);
 };
 
 #endif // MAPLOADER_H

@@ -44,6 +44,8 @@ public:
     Map(string filename);
 
     void findTokens();
+
+    vector<pos> getStartPoint() const;
 };
 
 #endif // MAP_H
