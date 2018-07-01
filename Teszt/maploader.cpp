@@ -19,3 +19,8 @@ MapLoader::MapLoader()
         maps[i] = new Map(mapnames[i]);
     }
 }
+
+Map *MapLoader::getMap(int num)
+{
+    return maps[num];
+}
