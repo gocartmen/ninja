@@ -38,169 +38,181 @@ void Map::findTokens()
     for(int i=0;i<w;i++){
         for(int j=0;j<h;j++){
             switch(map[i][j]){
-            case '@':{
-                newPos.x = i;
-                newPos.y = j;
-                startPoint.push_back(newPos);
-                break;
-            }
-            case '$':{
-                holySymbol.x = i;
-                holySymbol.y = j;
-                break;
-            }
-            case '#':{
-                newPos.x = i;
-                newPos.y = j;
-                unbreakableWalls.push_back(newPos);
-                break;
-            }
-            case 'X':{
-                newPos.x = i;
-                newPos.y = j;
-                breakableWalls.push_back(newPos);
-                break;
-            }
-            case 'F':{
-                if(Fbool == false){
-                    newPortalPos.position[0].x = i;
-                    newPortalPos.position[0].y = j;
-                    int count = 0;
-                    for(int l=j;l<h;l++)
-                    for(int k=0;k<w;k++){
-                        if(map[k][l] == 'F'){
-                            count++;
-                            if(count == 2){
-                                newPortalPos.position[1].x = k;
-                                newPortalPos.position[1].y = l;
+                case '@':{
+                    newPos.x = i;
+                    newPos.y = j;
+                    startPoint.push_back(newPos);
+                    break;
+                }
+                case '$':{
+                    holySymbol.x = i;
+                    holySymbol.y = j;
+                    break;
+                }
+                case '#':{
+                    newPos.x = i;
+                    newPos.y = j;
+                    unbreakableWalls.push_back(newPos);
+                    break;
+                }
+                case 'X':{
+                    newPos.x = i;
+                    newPos.y = j;
+                    breakableWalls.push_back(newPos);
+                    break;
+                }
+                case 'F':{
+                    if(Fbool == false){
+                        newPortalPos.position[0].x = i;
+                        newPortalPos.position[0].y = j;
+                        int count = 0;
+                        for(int l=j;l<h;l++)
+                        for(int k=0;k<w;k++){
+                            if(map[k][l] == 'F'){
+                                count++;
+                                if(count == 2){
+                                    newPortalPos.position[1].x = k;
+                                    newPortalPos.position[1].y = l;
+                                }
                             }
                         }
+                        portals.push_back(newPortalPos);
+                        Fbool = true;
                     }
-                    portals.push_back(newPortalPos);
-                    Fbool = true;
+                    break;
                 }
-                break;
-            }
-            case 'G':{
-                if(Gbool == false){
-                    newPortalPos.position[0].x = i;
-                    newPortalPos.position[0].y = j;
-                    int count = 0;
-                    for(int l=j;l<h;l++)
-                    for(int k=0;k<w;k++){
-                        if(map[k][l] == 'G'){
-                            count++;
-                            if(count == 2){
-                                newPortalPos.position[1].x = k;
-                                newPortalPos.position[1].y = l;
+                case 'G':{
+                    if(Gbool == false){
+                        newPortalPos.position[0].x = i;
+                        newPortalPos.position[0].y = j;
+                        int count = 0;
+                        for(int l=j;l<h;l++)
+                        for(int k=0;k<w;k++){
+                            if(map[k][l] == 'G'){
+                                count++;
+                                if(count == 2){
+                                    newPortalPos.position[1].x = k;
+                                    newPortalPos.position[1].y = l;
+                                }
                             }
                         }
+                        portals.push_back(newPortalPos);
+                        Gbool = true;
                     }
-                    portals.push_back(newPortalPos);
-                    Gbool = true;
+                    break;
                 }
-                break;
-            }
-            case 'H':{
-                if(Hbool == false){
-                    newPortalPos.position[0].x = i;
-                    newPortalPos.position[0].y = j;
-                    int count = 0;
-                    for(int l=j;l<h;l++)
-                    for(int k=0;k<w;k++){
-                        if(map[k][l] == 'H'){
-                            count++;
-                            if(count == 2){
-                                newPortalPos.position[1].x = k;
-                                newPortalPos.position[1].y = l;
+                case 'H':{
+                    if(Hbool == false){
+                        newPortalPos.position[0].x = i;
+                        newPortalPos.position[0].y = j;
+                        int count = 0;
+                        for(int l=j;l<h;l++)
+                        for(int k=0;k<w;k++){
+                            if(map[k][l] == 'H'){
+                                count++;
+                                if(count == 2){
+                                    newPortalPos.position[1].x = k;
+                                    newPortalPos.position[1].y = l;
+                                }
                             }
                         }
+                        portals.push_back(newPortalPos);
+                        Hbool = true;
                     }
-                    portals.push_back(newPortalPos);
-                    Hbool = true;
+                    break;
                 }
-                break;
-            }
-            case 'I':{
-                if(Ibool == false){
-                    newPortalPos.position[0].x = i;
-                    newPortalPos.position[0].y = j;
-                    int count = 0;
-                    for(int l=j;l<h;l++)
-                    for(int k=0;k<w;k++){
-                        if(map[k][l] == 'I'){
-                            count++;
-                            if(count == 2){
-                                newPortalPos.position[1].x = k;
-                                newPortalPos.position[1].y = l;
+                case 'I':{
+                    if(Ibool == false){
+                        newPortalPos.position[0].x = i;
+                        newPortalPos.position[0].y = j;
+                        int count = 0;
+                        for(int l=j;l<h;l++)
+                        for(int k=0;k<w;k++){
+                            if(map[k][l] == 'I'){
+                                count++;
+                                if(count == 2){
+                                    newPortalPos.position[1].x = k;
+                                    newPortalPos.position[1].y = l;
+                                }
                             }
                         }
+                        portals.push_back(newPortalPos);
+                        Ibool = true;
                     }
-                    portals.push_back(newPortalPos);
-                    Ibool = true;
+                    break;
                 }
-                break;
-            }
-            case 'J':{
-                if(Jbool == false){
-                    newPortalPos.position[0].x = i;
-                    newPortalPos.position[0].y = j;
-                    int count = 0;
-                    for(int l=j;l<h;l++)
-                    for(int k=0;k<w;k++){
-                        if(map[k][l] == 'J'){
-                            count++;
-                            if(count == 2){
-                                newPortalPos.position[1].x = k;
-                                newPortalPos.position[1].y = l;
+                case 'J':{
+                    if(Jbool == false){
+                        newPortalPos.position[0].x = i;
+                        newPortalPos.position[0].y = j;
+                        int count = 0;
+                        for(int l=j;l<h;l++)
+                        for(int k=0;k<w;k++){
+                            if(map[k][l] == 'J'){
+                                count++;
+                                if(count == 2){
+                                    newPortalPos.position[1].x = k;
+                                    newPortalPos.position[1].y = l;
+                                }
                             }
                         }
+                        portals.push_back(newPortalPos);
+                        Jbool = true;
                     }
-                    portals.push_back(newPortalPos);
-                    Jbool = true;
+                    break;
                 }
-                break;
-            }
-            case 'K':{
-                if(Kbool == false){
-                    newPortalPos.position[0].x = i;
-                    newPortalPos.position[0].y = j;
-                    int count = 0;
-                    for(int l=j;l<h;l++)
-                    for(int k=0;k<w;k++){
-                        if(map[k][l] == 'K'){
-                            count++;
-                            if(count == 2){
-                                newPortalPos.position[1].x = k;
-                                newPortalPos.position[1].y = l;
+                case 'K':{
+                    if(Kbool == false){
+                        newPortalPos.position[0].x = i;
+                        newPortalPos.position[0].y = j;
+                        int count = 0;
+                        for(int l=j;l<h;l++)
+                        for(int k=0;k<w;k++){
+                            if(map[k][l] == 'K'){
+                                count++;
+                                if(count == 2){
+                                    newPortalPos.position[1].x = k;
+                                    newPortalPos.position[1].y = l;
+                                }
                             }
                         }
+                        portals.push_back(newPortalPos);
+                        Kbool = true;
                     }
-                    portals.push_back(newPortalPos);
-                    Kbool = true;
+                    break;
                 }
-                break;
-            }
-            case 'L':{
-                if(Lbool == false){
-                    newPortalPos.position[0].x = i;
-                    newPortalPos.position[0].y = j;
-                    int count = 0;
-                    for(int l=j;l<h;l++)
-                    for(int k=0;k<w;k++){
-                        if(map[k][l] == 'L'){
-                            count++;
-                            if(count == 2){
-                                newPortalPos.position[1].x = k;
-                                newPortalPos.position[1].y = l;
+                case 'L':{
+                    if(Lbool == false){
+                        newPortalPos.position[0].x = i;
+                        newPortalPos.position[0].y = j;
+                        int count = 0;
+                        for(int l=j;l<h;l++)
+                        for(int k=0;k<w;k++){
+                            if(map[k][l] == 'L'){
+                                count++;
+                                if(count == 2){
+                                    newPortalPos.position[1].x = k;
+                                    newPortalPos.position[1].y = l;
+                                }
                             }
                         }
+                        portals.push_back(newPortalPos);
+                        Lbool = true;
                     }
-                    portals.push_back(newPortalPos);
-                    Lbool = true;
+                    break;
                 }
-                break;
-            }
+                case 'B':{
+                    newPos.x = i;
+                    newPos.y = j;
+                    sakes.push_back(newPos);
+                    break;
+                }
+                case '*':{
+                    newPos.x = i;
+                    newPos.y = j;
+                    shurikens.push_back(newPos);
+                    break;
+                }
             }
         }
     }

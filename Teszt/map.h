@@ -22,12 +22,6 @@ private:
     struct portalPos{
         struct pos position[2];
     };
-    struct dir{
-        vector<struct pos> S;
-        vector<struct pos> E;
-        vector<struct pos> N;
-        vector<struct pos> W;
-    };
 
     vector<struct pos> unbreakableWalls;
     vector<struct pos> breakableWalls;
@@ -41,7 +35,8 @@ private:
     bool Kbool = false;
     bool Lbool = false;
 
-    struct dir directionModifier;
+    vector<struct pos> sakes;
+    vector<struct pos> shurikens;
 
     vector<struct pos> startPoint;//this is vector because of later compatibility (if more ninjas)
     struct pos holySymbol;
