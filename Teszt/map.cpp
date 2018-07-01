@@ -201,12 +201,6 @@ void Map::findTokens()
                     }
                     break;
                 }
-                case 'B':{
-                    newPos.x = i;
-                    newPos.y = j;
-                    sakes.push_back(newPos);
-                    break;
-                }
                 case '*':{
                     newPos.x = i;
                     newPos.y = j;

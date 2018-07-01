@@ -35,7 +35,6 @@ private:
     bool Kbool = false;
     bool Lbool = false;
 
-    vector<struct pos> sakes;
     vector<struct pos> shurikens;
 
     vector<struct pos> startPoint;//this is vector because of later compatibility (if more ninjas)
