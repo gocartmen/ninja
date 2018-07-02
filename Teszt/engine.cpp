@@ -100,6 +100,11 @@ void Engine::checkNextStep()
                     move = true;
                     ninjaData->setY(ninjaData->getY() - 1);
                 }
+                if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == 'M'){
+                    move = true;
+                    ninjaData->setY(ninjaData->getY() - 1);
+                    ninjaData->setIsMirrored(!(ninjaData->getIsMirrored()));
+                }
                 setNewDirection(0,-1);
                 secretPaths(0,-1);
                 break;
@@ -109,6 +114,11 @@ void Engine::checkNextStep()
                 if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == ' '){
                     move = true;
                     ninjaData->setX(ninjaData->getX() + 1);
+                }
+                if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == 'M'){
+                    move = true;
+                    ninjaData->setX(ninjaData->getX() + 1);
+                    ninjaData->setIsMirrored(!(ninjaData->getIsMirrored()));
                 }
                 setNewDirection(1,0);
                 secretPaths(1,0);
@@ -120,6 +130,11 @@ void Engine::checkNextStep()
                     move = true;
                     ninjaData->setY(ninjaData->getY() + 1);
                 }
+                if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == 'M'){
+                    move = true;
+                    ninjaData->setY(ninjaData->getY() + 1);
+                    ninjaData->setIsMirrored(!(ninjaData->getIsMirrored()));
+                }
                 setNewDirection(0,1);
                 secretPaths(0,1);
                 break;
@@ -129,6 +144,11 @@ void Engine::checkNextStep()
                 if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == ' '){
                     move = true;
                     ninjaData->setX(ninjaData->getX() - 1);
+                }
+                if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == 'M'){
+                    move = true;
+                    ninjaData->setX(ninjaData->getX() - 1);
+                    ninjaData->setIsMirrored(!(ninjaData->getIsMirrored()));
                 }
                 setNewDirection(-1,0);
                 secretPaths(-1,0);
