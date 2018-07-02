@@ -462,8 +462,8 @@ void Engine::checkNextStep()
 void Engine::drawMap()
 {
     allSteps << endl;
-    for(int i=0;i<actualMap->getW();i++){
-        for(int j=0;j<actualMap->getH();j++){
+    for(int i=0;i<actualMap->getH();i++){
+        for(int j=0;j<actualMap->getW();j++){
             allSteps << actualMap->getMap()[i][j];
         }
         allSteps << endl;
