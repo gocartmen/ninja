@@ -14,6 +14,9 @@ private:
 
     Map * actualMap = NULL;
 
+    vector<char> prevSteps;
+    stringstream allSteps;
+
     bool state = true;//solver run until state is true
 
     int actualMapNum = 0;//first map to start
@@ -27,6 +30,7 @@ private:
 
     void setNewDirection(int x, int y);
     void secretPaths(int x, int y);
+    bool loopDetection();
     void checkNextStep();
     void drawMap();
 public:

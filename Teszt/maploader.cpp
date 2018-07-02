@@ -17,10 +17,12 @@ MapLoader::MapLoader()
         mapCount++;
     }
 
+    mapCount--;
+
     file.close();
 
-    maps = new Map*[mapCount-1];
-    for(int i=0;i<mapCount-1;i++){
+    maps = new Map*[mapCount];
+    for(int i=0;i<mapCount;i++){
         maps[i] = new Map(mapnames[i]);
         //cout << "map : " << i << endl;
         maps[i]->findTokens();
