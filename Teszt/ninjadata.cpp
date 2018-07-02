@@ -35,6 +35,16 @@ int NinjaData::getShurikens() const
     return shurikens;
 }
 
+bool NinjaData::getIsMirrored() const
+{
+    return isMirrored;
+}
+
+void NinjaData::setIsMirrored(bool value)
+{
+    isMirrored = value;
+}
+
 NinjaData::NinjaData()
 {
 

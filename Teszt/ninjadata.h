@@ -28,6 +28,8 @@ public:
     int getY() const;
     void setY(int value);
     int getShurikens() const;
+    bool getIsMirrored() const;
+    void setIsMirrored(bool value);
 };
 
 #endif // NINJADATA_H

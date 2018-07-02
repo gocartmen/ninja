@@ -51,6 +51,10 @@ public:
     vector<portalPos> getPortals() const;
     vector<pos> getBreakableWalls() const;
     vector<pos> getUnbreakableWalls() const;
+    int getW() const;
+    int getH() const;
+    vector<string> getMap() const;
+    void setMap(const vector<string> &value);
 };
 
 #endif // MAP_H

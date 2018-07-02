@@ -5,29 +5,49 @@ vector<Map::pos> Map::getStartPoint()
     return startPoint;
 }
 
-pos Map::getHolySymbol() const
+Map::pos Map::getHolySymbol() const
 {
     return holySymbol;
 }
 
-vector<pos> Map::getShurikens() const
+vector<Map::pos> Map::getShurikens() const
 {
     return shurikens;
 }
 
-vector<portalPos> Map::getPortals() const
+vector<Map::portalPos> Map::getPortals() const
 {
     return portals;
 }
 
-vector<pos> Map::getBreakableWalls() const
+vector<Map::pos> Map::getBreakableWalls() const
 {
     return breakableWalls;
 }
 
-vector<pos> Map::getUnbreakableWalls() const
+vector<Map::pos> Map::getUnbreakableWalls() const
 {
     return unbreakableWalls;
+}
+
+int Map::getW() const
+{
+    return w;
+}
+
+int Map::getH() const
+{
+    return h;
+}
+
+vector<string> Map::getMap() const
+{
+    return map;
+}
+
+void Map::setMap(const vector<string> &value)
+{
+    map = value;
 }
 
 Map::Map()
