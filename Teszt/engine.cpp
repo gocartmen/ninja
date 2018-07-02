@@ -81,12 +81,24 @@ void Engine::checkNextStep()
                 actualMap->getMap()[ninjaData->getX()][i] = '*';
                 shuriken = true;
             }
+            if(actualMap->getMap()[ninjaData->getX()][i] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
+                ninjaData->throwShuriken();
+                actualMap->getMap()[ninjaData->getX()][i] = ' ';
+                shuriken = true;
+                isFinished = true;
+            }
         }
         for(int i=0;i<actualMap->getW();i++){
             if(actualMap->getMap()[i][ninjaData->getY()] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
                 ninjaData->throwShuriken();
                 actualMap->getMap()[i][ninjaData->getY()] = '*';
                 shuriken = true;
+            }
+            if(actualMap->getMap()[i][ninjaData->getY()] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
+                ninjaData->throwShuriken();
+                actualMap->getMap()[i][ninjaData->getY()] = ' ';
+                shuriken = true;
+                isFinished = true;
             }
         }
     }
@@ -107,9 +119,14 @@ void Engine::checkNextStep()
                 }
                 if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == '*'){
                     move = true;
-                    ninjaData->setY(ninjaData->getY() - 1);
                     actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] = ' ';
+                    ninjaData->setY(ninjaData->getY() - 1);
                     ninjaData->addShuriken();
+                }
+                if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == 'B'){
+                    move = true;
+                    ninjaData->setY(ninjaData->getY() - 1);
+                    ninjaData->setBreakerMode(!(ninjaData->getBreakerMode()));
                 }
                 setNewDirection(0,-1);
                 secretPaths(0,-1);
@@ -128,9 +145,14 @@ void Engine::checkNextStep()
                 }
                 if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == '*'){
                     move = true;
-                    ninjaData->setX(ninjaData->getX() + 1);
                     actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] = ' ';
+                    ninjaData->setX(ninjaData->getX() + 1);
                     ninjaData->addShuriken();
+                }
+                if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == 'B'){
+                    move = true;
+                    ninjaData->setX(ninjaData->getX() + 1);
+                    ninjaData->setBreakerMode(!(ninjaData->getBreakerMode()));
                 }
                 setNewDirection(1,0);
                 secretPaths(1,0);
@@ -149,9 +171,14 @@ void Engine::checkNextStep()
                 }
                 if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == '*'){
                     move = true;
-                    ninjaData->setY(ninjaData->getY() + 1);
                     actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] = ' ';
+                    ninjaData->setY(ninjaData->getY() + 1);
                     ninjaData->addShuriken();
+                }
+                if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == 'B'){
+                    move = true;
+                    ninjaData->setY(ninjaData->getY() + 1);
+                    ninjaData->setBreakerMode(!(ninjaData->getBreakerMode()));
                 }
                 setNewDirection(0,1);
                 secretPaths(0,1);
@@ -170,9 +197,14 @@ void Engine::checkNextStep()
                 }
                 if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == '*'){
                     move = true;
-                    ninjaData->setX(ninjaData->getX() - 1);
                     actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] = ' ';
+                    ninjaData->setX(ninjaData->getX() - 1);
                     ninjaData->addShuriken();
+                }
+                if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == 'B'){
+                    move = true;
+                    ninjaData->setX(ninjaData->getX() - 1);
+                    ninjaData->setBreakerMode(!(ninjaData->getBreakerMode()));
                 }
                 setNewDirection(-1,0);
                 secretPaths(-1,0);
@@ -184,33 +216,69 @@ void Engine::checkNextStep()
             switch(ninjaData->getDirection()){
                 case 0:{
                     //south
-                    if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == '#' || actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == 'X'){
+                    if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == '#'){
                         changeDirection = true;
                         ninjaData->changeDirection();
+                    }
+                    if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == 'X'){
+                        changeDirection = true;
+                        if(ninjaData->getBreakerMode()){
+                            actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] = ' ';
+                            ninjaData->setY(ninjaData->getY() - 1);
+                        }else{
+                            ninjaData->changeDirection();
+                        }
                     }
                     break;
                 }
                 case 1:{
                     //east
-                    if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == '#' || actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == 'X'){
+                    if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == '#'){
                         changeDirection = true;
                         ninjaData->changeDirection();
+                    }
+                    if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == 'X'){
+                        changeDirection = true;
+                        if(ninjaData->getBreakerMode()){
+                            actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] = ' ';
+                            ninjaData->setX(ninjaData->getX() + 1);
+                        }else{
+                            ninjaData->changeDirection();
+                        }
                     }
                     break;
                 }
                 case 2:{
                     //north
-                    if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == '#' || actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == 'X'){
+                    if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == '#'){
                         changeDirection = true;
                         ninjaData->changeDirection();
+                    }
+                    if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == 'X'){
+                        changeDirection = true;
+                        if(ninjaData->getBreakerMode()){
+                            actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] = ' ';
+                            ninjaData->setY(ninjaData->getY() + 1);
+                        }else{
+                            ninjaData->changeDirection();
+                        }
                     }
                     break;
                 }
                 case 3:{
                     //west
-                    if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == '#' || actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == 'X'){
+                    if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == '#'){
                         changeDirection = true;
                         ninjaData->changeDirection();
+                    }
+                    if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == 'X'){
+                        changeDirection = true;
+                        if(ninjaData->getBreakerMode()){
+                            actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] = ' ';
+                            ninjaData->setX(ninjaData->getX() - 1);
+                        }else{
+                            ninjaData->changeDirection();
+                        }
                     }
                     break;
                 }
@@ -224,7 +292,9 @@ void Engine::update()
     string answer;
     while(state == true){
         while(isFinished == false){
-            mapSolvable = false;//temporary
+            checkNextStep();
+
+            //mapSolvable = false;//temporary
             if(mapSolvable == false){
                 isFinished = true;
             }
