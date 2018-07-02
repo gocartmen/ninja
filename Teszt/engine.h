@@ -24,12 +24,14 @@ private:
     bool move;
     bool shuriken;
     bool changeDirection;
-public:
-    Engine();
 
+    //functions
     void setNewDirection(int x, int y);
     void secretPaths(int x, int y);
     void checkNextStep();
+public:
+    Engine();
+
     void update();
 };
 
