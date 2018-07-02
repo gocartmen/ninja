@@ -13,14 +13,21 @@ private:
 
     int x = 0;
     int y = 0;
+    bool isMirrored = false;
 public:
     NinjaData();
     NinjaData(int x, int y);
 
+    void throwShuriken();
+    void changeDirection();
+
     int getDirection() const;
     void setDirection(int value);
+    int getX() const;
+    void setX(int value);
+    int getY() const;
+    void setY(int value);
     int getShurikens() const;
-    void setShurikens(int value);
 };
 
 #endif // NINJADATA_H

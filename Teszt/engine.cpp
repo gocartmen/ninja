@@ -13,26 +13,106 @@ Engine::Engine()
     actualMap = mapLoader->getMap(actualMapNum);
 
     ninjaData = new NinjaData(actualMap->getStartPoint()[0].x, actualMap->getStartPoint()[0].y);
+
+    move = false;
+
+    shuriken = false;
+
+    changeDirection = false;
 }
 
 void Engine::checkNextStep()
 {
-    switch(ninjaData->getDirection()){
-        case 0:{
-            //south
-            break;
+    shuriken = false;
+    if(ninjaData->getShurikens() > 0){
+        for(int i=0;i<actualMap->getH();i++){
+            if(map[ninjaData->getX()][i] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
+                ninjaData->throwShuriken();
+                map[ninjaData->getX()][i] = ' ';
+                shuriken = true;
+            }
         }
-        case 1:{
-            //east
-            break;
+        for(int i=0;i<actualMap->getW();i++){
+            if(map[i][ninjaData->getY()] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
+                ninjaData->throwShuriken();
+                map[i][ninjaData->getY()] = ' ';
+                shuriken = true;
+            }
         }
-        case 2:{
-            //north
-            break;
+    }
+
+    move = false;
+    if(shuriken == false){
+        switch(ninjaData->getDirection()){
+            case 0:{
+                //south
+                if(map[ninjaData->getX()][ninjaData->getY()-1] == ' '){
+                    move = true;
+                    ninjaData->setY(ninjaData->getY() - 1);
+                }
+                break;
+            }
+            case 1:{
+                //east
+                if(map[ninjaData->getX()+1][ninjaData->getY()] == ' '){
+                    move = true;
+                    ninjaData->setX(ninjaData->getX() + 1);
+                }
+                break;
+            }
+            case 2:{
+                //north
+                if(map[ninjaData->getX()][ninjaData->getY()+1] == ' '){
+                    move = true;
+                    ninjaData->setY(ninjaData->getY() + 1);
+                }
+                break;
+            }
+            case 3:{
+                //west
+                if(map[ninjaData->getX()-1][ninjaData->getY()] == ' '){
+                    move = true;
+                    ninjaData->setX(ninjaData->getX() - 1);
+                }
+                break;
+            }
         }
-        case 3:{
-            //west
-            break;
+        if(move == false){
+            changeDirection = false;
+            switch(ninjaData->getDirection()){
+                case 0:{
+                    //south
+                    if(map[ninjaData->getX()][ninjaData->getY()-1] == '#' || map[ninjaData->getX()][ninjaData->getY()-1] == 'X'){
+                        changeDirection = true;
+                        ninjaData->changeDirection();
+                    }
+                    break;
+                }
+                case 1:{
+                    //east
+                    if(map[ninjaData->getX()+1][ninjaData->getY()] == '#' || map[ninjaData->getX()+1][ninjaData->getY()] == 'X'){
+                        changeDirection = true;
+                        ninjaData->changeDirection();
+                    }
+                    break;
+                }
+                case 2:{
+                    //north
+                    if(map[ninjaData->getX()][ninjaData->getY()+1] == '#' || map[ninjaData->getX()][ninjaData->getY()+1] == 'X'){
+                        changeDirection = true;
+                        ninjaData->changeDirection();
+                    }
+                    break;
+                }
+                case 3:{
+                    //west
+                    if(map[ninjaData->getX()-1][ninjaData->getY()] == '#' || map[ninjaData->getX()-1][ninjaData->getY()] == 'X'){
+                        changeDirection = true;
+                        ninjaData->changeDirection();
+                    }
+                    break;
+                }
+            }
         }
     }
 }

@@ -20,6 +20,10 @@ private:
     bool mapSolvable = true;//have to check if map is solvable
 
     bool isFinished = false;
+
+    bool move;
+    bool shuriken;
+    bool changeDirection;
 public:
     Engine();
 
