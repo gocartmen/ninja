@@ -78,14 +78,14 @@ void Engine::checkNextStep()
         for(int i=0;i<actualMap->getH();i++){
             if(actualMap->getMap()[ninjaData->getX()][i] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
                 ninjaData->throwShuriken();
-                actualMap->getMap()[ninjaData->getX()][i] = ' ';
+                actualMap->getMap()[ninjaData->getX()][i] = '*';
                 shuriken = true;
             }
         }
         for(int i=0;i<actualMap->getW();i++){
             if(actualMap->getMap()[i][ninjaData->getY()] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
                 ninjaData->throwShuriken();
-                actualMap->getMap()[i][ninjaData->getY()] = ' ';
+                actualMap->getMap()[i][ninjaData->getY()] = '*';
                 shuriken = true;
             }
         }
@@ -105,6 +105,12 @@ void Engine::checkNextStep()
                     ninjaData->setY(ninjaData->getY() - 1);
                     ninjaData->setIsMirrored(!(ninjaData->getIsMirrored()));
                 }
+                if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == '*'){
+                    move = true;
+                    ninjaData->setY(ninjaData->getY() - 1);
+                    actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] = ' ';
+                    ninjaData->addShuriken();
+                }
                 setNewDirection(0,-1);
                 secretPaths(0,-1);
                 break;
@@ -119,6 +125,12 @@ void Engine::checkNextStep()
                     move = true;
                     ninjaData->setX(ninjaData->getX() + 1);
                     ninjaData->setIsMirrored(!(ninjaData->getIsMirrored()));
+                }
+                if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == '*'){
+                    move = true;
+                    ninjaData->setX(ninjaData->getX() + 1);
+                    actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] = ' ';
+                    ninjaData->addShuriken();
                 }
                 setNewDirection(1,0);
                 secretPaths(1,0);
@@ -135,6 +147,12 @@ void Engine::checkNextStep()
                     ninjaData->setY(ninjaData->getY() + 1);
                     ninjaData->setIsMirrored(!(ninjaData->getIsMirrored()));
                 }
+                if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == '*'){
+                    move = true;
+                    ninjaData->setY(ninjaData->getY() + 1);
+                    actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] = ' ';
+                    ninjaData->addShuriken();
+                }
                 setNewDirection(0,1);
                 secretPaths(0,1);
                 break;
@@ -149,6 +167,12 @@ void Engine::checkNextStep()
                     move = true;
                     ninjaData->setX(ninjaData->getX() - 1);
                     ninjaData->setIsMirrored(!(ninjaData->getIsMirrored()));
+                }
+                if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == '*'){
+                    move = true;
+                    ninjaData->setX(ninjaData->getX() - 1);
+                    actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] = ' ';
+                    ninjaData->addShuriken();
                 }
                 setNewDirection(-1,0);
                 secretPaths(-1,0);

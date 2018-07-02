@@ -45,6 +45,16 @@ void NinjaData::setIsMirrored(bool value)
     isMirrored = value;
 }
 
+bool NinjaData::getBreakerMode() const
+{
+    return breakerMode;
+}
+
+void NinjaData::setBreakerMode(bool value)
+{
+    breakerMode = value;
+}
+
 NinjaData::NinjaData()
 {
 
@@ -78,4 +88,9 @@ void NinjaData::changeDirection()
             }
         }
     }
+}
+
+void NinjaData::addShuriken()
+{
+    shurikens++;
 }

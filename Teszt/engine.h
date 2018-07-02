@@ -25,7 +25,6 @@ private:
     bool shuriken;
     bool changeDirection;
 
-    //functions
     void setNewDirection(int x, int y);
     void secretPaths(int x, int y);
     void checkNextStep();
