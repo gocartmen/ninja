@@ -27,6 +27,8 @@ private:
 public:
     Engine();
 
+    void setNewDirection(int x, int y);
+    void secretPaths(int x, int y);
     void checkNextStep();
     void update();
 };

@@ -21,6 +21,56 @@ Engine::Engine()
     changeDirection = false;
 }
 
+void Engine::setNewDirection(int x, int y)
+{
+    if(actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y] == 'S'){
+        move = true;
+        ninjaData->setX(ninjaData->getX() + x);
+        ninjaData->setY(ninjaData->getY() + y);
+        ninjaData->setDirection(0);
+    }
+    if(actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y] == 'E'){
+        move = true;
+        ninjaData->setX(ninjaData->getX() + x);
+        ninjaData->setY(ninjaData->getY() + y);
+        ninjaData->setDirection(1);
+    }
+    if(actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y] == 'N'){
+        move = true;
+        ninjaData->setX(ninjaData->getX() + x);
+        ninjaData->setY(ninjaData->getY() + y);
+        ninjaData->setDirection(2);
+    }
+    if(actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y] == 'W'){
+        move = true;
+        ninjaData->setX(ninjaData->getX() + x);
+        ninjaData->setY(ninjaData->getY() + y);
+        ninjaData->setDirection(3);
+    }
+}
+
+void Engine::secretPaths(int x, int y)
+{
+    if(actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y] == 'F' ||
+       actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y] == 'G' ||
+       actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y] == 'H' ||
+       actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y] == 'I' ||
+       actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y] == 'J' ||
+       actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y] == 'K' ||
+       actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y] == 'L'){
+        move = true;
+        for(int i=0;i<actualMap->getPortals().size();i++){
+            if((actualMap->getPortals()[i].position[0].x == ninjaData->getX() && actualMap->getPortals()[i].position[0].y == ninjaData->getY())){
+                ninjaData->setX(actualMap->getPortals()[i].position[1].x);
+                ninjaData->setY(actualMap->getPortals()[i].position[1].y);
+            }else if((actualMap->getPortals()[i].position[1].x == ninjaData->getX() && actualMap->getPortals()[i].position[1].y == ninjaData->getY())){
+                ninjaData->setX(actualMap->getPortals()[i].position[0].x);
+                ninjaData->setY(actualMap->getPortals()[i].position[0].y);
+            }
+        }
+    }
+}
+
 void Engine::checkNextStep()
 {
     shuriken = false;
@@ -50,6 +100,8 @@ void Engine::checkNextStep()
                     move = true;
                     ninjaData->setY(ninjaData->getY() - 1);
                 }
+                setNewDirection(0,-1);
+                secretPaths(0,-1);
                 break;
             }
             case 1:{
@@ -58,6 +110,8 @@ void Engine::checkNextStep()
                     move = true;
                     ninjaData->setX(ninjaData->getX() + 1);
                 }
+                setNewDirection(1,0);
+                secretPaths(1,0);
                 break;
             }
             case 2:{
@@ -66,6 +120,8 @@ void Engine::checkNextStep()
                     move = true;
                     ninjaData->setY(ninjaData->getY() + 1);
                 }
+                setNewDirection(0,1);
+                secretPaths(0,1);
                 break;
             }
             case 3:{
@@ -74,6 +130,8 @@ void Engine::checkNextStep()
                     move = true;
                     ninjaData->setX(ninjaData->getX() - 1);
                 }
+                setNewDirection(-1,0);
+                secretPaths(-1,0);
                 break;
             }
         }
