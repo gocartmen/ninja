@@ -288,6 +288,15 @@ void Engine::checkNextStep()
                             cout << "SOUTH (because of X)" << endl;
                         }
                     }
+                    if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == '$'){
+                        changeDirection = true;
+                        ninjaData->changeDirection();
+                        if(ninjaData->getIsMirrored() == false){
+                            cout << "SOUTH (because of #)" << endl;
+                        }else{
+                            cout << "NORTH (because of #)" << endl;
+                        }
+                    }
                     break;
                 }
                 case 0:{
@@ -310,6 +319,15 @@ void Engine::checkNextStep()
                         }else{
                             ninjaData->changeDirection();
                             cout << "EAST (because of X)" << endl;
+                        }
+                    }
+                    if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == '$'){
+                        changeDirection = true;
+                        ninjaData->changeDirection();
+                        if(ninjaData->getIsMirrored() == false){
+                            cout << "EAST (because of #)" << endl;
+                        }else{
+                            cout << "WEST (because of #)" << endl;
                         }
                     }
                     break;
@@ -336,6 +354,15 @@ void Engine::checkNextStep()
                             cout << "NORTH (because of X)" << endl;
                         }
                     }
+                    if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == '$'){
+                        changeDirection = true;
+                        ninjaData->changeDirection();
+                        if(ninjaData->getIsMirrored() == false){
+                            cout << "NORTH (because of #)" << endl;
+                        }else{
+                            cout << "SOUTH (because of #)" << endl;
+                        }
+                    }
                     break;
                 }
                 case 2:{
@@ -358,6 +385,15 @@ void Engine::checkNextStep()
                         }else{
                             ninjaData->changeDirection();
                             cout << "WEST (because of X)" << endl;
+                        }
+                    }
+                    if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == '$'){
+                        changeDirection = true;
+                        ninjaData->changeDirection();
+                        if(ninjaData->getIsMirrored() == false){
+                            cout << "WEST (because of #)" << endl;
+                        }else{
+                            cout << "EAST (because of #)" << endl;
                         }
                     }
                     break;
