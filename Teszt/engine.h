@@ -28,6 +28,7 @@ private:
     void setNewDirection(int x, int y);
     void secretPaths(int x, int y);
     void checkNextStep();
+    void drawMap();
 public:
     Engine();
 

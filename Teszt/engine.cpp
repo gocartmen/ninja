@@ -75,30 +75,34 @@ void Engine::checkNextStep()
 {
     shuriken = false;
     if(ninjaData->getShurikens() > 0){
-        for(int i=0;i<actualMap->getH();i++){
+        for(int i=0;i<actualMap->getW();i++){
             if(actualMap->getMap()[ninjaData->getX()][i] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
                 ninjaData->throwShuriken();
-                actualMap->getMap()[ninjaData->getX()][i] = '*';
+                actualMap->setMap(ninjaData->getX(), i, '*');
                 shuriken = true;
+                cout << "THROW (throws a shuriken to destroy X)" << endl;
             }
             if(actualMap->getMap()[ninjaData->getX()][i] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
                 ninjaData->throwShuriken();
-                actualMap->getMap()[ninjaData->getX()][i] = ' ';
+                actualMap->setMap(ninjaData->getX(), i, ' ');
                 shuriken = true;
                 isFinished = true;
+                cout << "THROW (throws a shuriken to destroy $)" << endl;
             }
         }
-        for(int i=0;i<actualMap->getW();i++){
+        for(int i=0;i<actualMap->getH();i++){
             if(actualMap->getMap()[i][ninjaData->getY()] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
                 ninjaData->throwShuriken();
-                actualMap->getMap()[i][ninjaData->getY()] = '*';
+                actualMap->setMap(i, ninjaData->getY(), '*');
                 shuriken = true;
+                cout << "THROW (throws a shuriken to destroy X)" << endl;
             }
             if(actualMap->getMap()[i][ninjaData->getY()] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
                 ninjaData->throwShuriken();
-                actualMap->getMap()[i][ninjaData->getY()] = ' ';
+                actualMap->setMap(i, ninjaData->getY(), ' ');
                 shuriken = true;
                 isFinished = true;
+                cout << "THROW (throws a shuriken to destroy $)" << endl;
             }
         }
     }
@@ -106,105 +110,153 @@ void Engine::checkNextStep()
     move = false;
     if(shuriken == false){
         switch(ninjaData->getDirection()){
-            case 0:{
-                //south
+            case 3:{
+                //west
                 if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == ' '){
                     move = true;
+                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
                     ninjaData->setY(ninjaData->getY() - 1);
+                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
+                    cout << "WEST (move)" << endl;
                 }
                 if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == 'M'){
                     move = true;
                     ninjaData->setY(ninjaData->getY() - 1);
                     ninjaData->setIsMirrored(!(ninjaData->getIsMirrored()));
+                    cout << "WEST (move, after that mirrored priority in movement)" << endl;
                 }
                 if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == '*'){
                     move = true;
-                    actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] = ' ';
+                    actualMap->setMap(ninjaData->getX(), ninjaData->getY()-1, ' ');
+                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
                     ninjaData->setY(ninjaData->getY() - 1);
+                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
                     ninjaData->addShuriken();
+                    cout << "WEST (move, after that collected a shuriken)" << endl;
                 }
                 if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == 'B'){
                     move = true;
                     ninjaData->setY(ninjaData->getY() - 1);
                     ninjaData->setBreakerMode(!(ninjaData->getBreakerMode()));
+                    if(ninjaData->getBreakerMode() == false){
+                        cout << "WEST (move, after that entered into breaker mode)" << endl;
+                    }else{
+                        cout << "WEST (move, after that moved out of breaker mode)" << endl;
+                    }
                 }
                 setNewDirection(0,-1);
                 secretPaths(0,-1);
                 break;
             }
-            case 1:{
-                //east
+            case 0:{
+                //south
                 if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == ' '){
                     move = true;
+                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
                     ninjaData->setX(ninjaData->getX() + 1);
+                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
+                    cout << "SOUTH (move)" << endl;
                 }
                 if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == 'M'){
                     move = true;
                     ninjaData->setX(ninjaData->getX() + 1);
                     ninjaData->setIsMirrored(!(ninjaData->getIsMirrored()));
+                    cout << "SOUTH (move, after that mirrored priority in movement)" << endl;
                 }
                 if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == '*'){
                     move = true;
-                    actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] = ' ';
+                    actualMap->setMap(ninjaData->getX()+1, ninjaData->getY(), ' ');
+                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
                     ninjaData->setX(ninjaData->getX() + 1);
+                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
                     ninjaData->addShuriken();
+                    cout << "SOUTH (move, after that collected a shuriken)" << endl;
                 }
                 if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == 'B'){
                     move = true;
                     ninjaData->setX(ninjaData->getX() + 1);
                     ninjaData->setBreakerMode(!(ninjaData->getBreakerMode()));
+                    if(ninjaData->getBreakerMode() == false){
+                        cout << "SOUTH (move, after that entered into breaker mode)" << endl;
+                    }else{
+                        cout << "SOUTH (move, after that moved out of breaker mode)" << endl;
+                    }
                 }
                 setNewDirection(1,0);
                 secretPaths(1,0);
                 break;
             }
-            case 2:{
-                //north
+            case 1:{
+                //east
                 if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == ' '){
                     move = true;
+                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
                     ninjaData->setY(ninjaData->getY() + 1);
+                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
+                    cout << "EAST (move)" << endl;
                 }
                 if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == 'M'){
                     move = true;
                     ninjaData->setY(ninjaData->getY() + 1);
                     ninjaData->setIsMirrored(!(ninjaData->getIsMirrored()));
+                    cout << "EAST (move, after that mirrored priority in movement)" << endl;
                 }
                 if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == '*'){
                     move = true;
-                    actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] = ' ';
+                    actualMap->setMap(ninjaData->getX(), ninjaData->getY()+1, ' ');
+                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
                     ninjaData->setY(ninjaData->getY() + 1);
+                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
                     ninjaData->addShuriken();
+                    cout << "EAST (move, after that collected a shuriken)" << endl;
                 }
                 if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == 'B'){
                     move = true;
                     ninjaData->setY(ninjaData->getY() + 1);
                     ninjaData->setBreakerMode(!(ninjaData->getBreakerMode()));
+                    if(ninjaData->getBreakerMode() == false){
+                        cout << "EAST (move, after that entered into breaker mode)" << endl;
+                    }else{
+                        cout << "EAST (move, after that moved out of breaker mode)" << endl;
+                    }
                 }
                 setNewDirection(0,1);
                 secretPaths(0,1);
                 break;
             }
-            case 3:{
-                //west
+            case 2:{
+                //north
                 if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == ' '){
                     move = true;
+                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
                     ninjaData->setX(ninjaData->getX() - 1);
+                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
+                    cout << "NORTH (move)" << endl;
                 }
                 if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == 'M'){
                     move = true;
                     ninjaData->setX(ninjaData->getX() - 1);
                     ninjaData->setIsMirrored(!(ninjaData->getIsMirrored()));
+                    cout << "NORTH (move, after that mirrored priority in movement)" << endl;
                 }
                 if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == '*'){
                     move = true;
-                    actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] = ' ';
+                    actualMap->setMap(ninjaData->getX()-1, ninjaData->getY(), ' ');
+                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
                     ninjaData->setX(ninjaData->getX() - 1);
+                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
                     ninjaData->addShuriken();
+                    cout << "NORTH (move, after that collected a shuriken)" << endl;
                 }
                 if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == 'B'){
                     move = true;
                     ninjaData->setX(ninjaData->getX() - 1);
                     ninjaData->setBreakerMode(!(ninjaData->getBreakerMode()));
+                    if(ninjaData->getBreakerMode() == false){
+                        cout << "NORTH (move, after that entered into breaker mode)" << endl;
+                    }else{
+                        cout << "NORTH (move, after that moved out of breaker mode)" << endl;
+                    }
                 }
                 setNewDirection(-1,0);
                 secretPaths(-1,0);
@@ -214,70 +266,98 @@ void Engine::checkNextStep()
         if(move == false){
             changeDirection = false;
             switch(ninjaData->getDirection()){
-                case 0:{
-                    //south
+                case 3:{
+                    //west
                     if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == '#'){
                         changeDirection = true;
                         ninjaData->changeDirection();
+                        if(ninjaData->getIsMirrored() == false){
+                            cout << "SOUTH (because of #)" << endl;
+                        }else{
+                            cout << "NORTH (because of #)" << endl;
+                        }
                     }
                     if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == 'X'){
                         changeDirection = true;
                         if(ninjaData->getBreakerMode()){
-                            actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] = ' ';
+                            actualMap->setMap(ninjaData->getX(), ninjaData->getY()-1, ' ');
                             ninjaData->setY(ninjaData->getY() - 1);
+                            cout << "WEST (destroyed X in breaker mode)" << endl;
                         }else{
                             ninjaData->changeDirection();
+                            cout << "SOUTH (because of X)" << endl;
+                        }
+                    }
+                    break;
+                }
+                case 0:{
+                    //south
+                    if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == '#'){
+                        changeDirection = true;
+                        ninjaData->changeDirection();
+                        if(ninjaData->getIsMirrored() == false){
+                            cout << "EAST (because of #)" << endl;
+                        }else{
+                            cout << "WEST (because of #)" << endl;
+                        }
+                    }
+                    if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == 'X'){
+                        changeDirection = true;
+                        if(ninjaData->getBreakerMode()){
+                            actualMap->setMap(ninjaData->getX()+1, ninjaData->getY(), ' ');
+                            ninjaData->setX(ninjaData->getX() + 1);
+                            cout << "SOUTH (destroyed X in breaker mode)" << endl;
+                        }else{
+                            ninjaData->changeDirection();
+                            cout << "EAST (because of X)" << endl;
                         }
                     }
                     break;
                 }
                 case 1:{
                     //east
-                    if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == '#'){
+                    if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == '#'){
                         changeDirection = true;
                         ninjaData->changeDirection();
+                        if(ninjaData->getIsMirrored() == false){
+                            cout << "NORTH (because of #)" << endl;
+                        }else{
+                            cout << "SOUTH (because of #)" << endl;
+                        }
                     }
-                    if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == 'X'){
+                    if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == 'X'){
                         changeDirection = true;
                         if(ninjaData->getBreakerMode()){
-                            actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] = ' ';
-                            ninjaData->setX(ninjaData->getX() + 1);
+                            actualMap->setMap(ninjaData->getX(), ninjaData->getY()+1, ' ');
+                            ninjaData->setY(ninjaData->getY() + 1);
+                            cout << "EAST (destroyed X in breaker mode)" << endl;
                         }else{
                             ninjaData->changeDirection();
+                            cout << "NORTH (because of X)" << endl;
                         }
                     }
                     break;
                 }
                 case 2:{
                     //north
-                    if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == '#'){
-                        changeDirection = true;
-                        ninjaData->changeDirection();
-                    }
-                    if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == 'X'){
-                        changeDirection = true;
-                        if(ninjaData->getBreakerMode()){
-                            actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] = ' ';
-                            ninjaData->setY(ninjaData->getY() + 1);
-                        }else{
-                            ninjaData->changeDirection();
-                        }
-                    }
-                    break;
-                }
-                case 3:{
-                    //west
                     if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == '#'){
                         changeDirection = true;
                         ninjaData->changeDirection();
+                        if(ninjaData->getIsMirrored() == false){
+                            cout << "WEST (because of #)" << endl;
+                        }else{
+                            cout << "EAST (because of #)" << endl;
+                        }
                     }
                     if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == 'X'){
                         changeDirection = true;
                         if(ninjaData->getBreakerMode()){
-                            actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] = ' ';
+                            actualMap->setMap(ninjaData->getX()-1, ninjaData->getY(), ' ');
                             ninjaData->setX(ninjaData->getX() - 1);
+                            cout << "NORTH (destroyed X in breaker mode)" << endl;
                         }else{
                             ninjaData->changeDirection();
+                            cout << "WEST (because of X)" << endl;
                         }
                     }
                     break;
@@ -287,11 +367,22 @@ void Engine::checkNextStep()
     }
 }
 
+void Engine::drawMap()
+{
+    for(int i=0;i<actualMap->getW();i++){
+        for(int j=0;j<actualMap->getH();j++){
+            cout << actualMap->getMap()[i][j];
+        }
+        cout << endl;
+    }
+}
+
 void Engine::update()
 {
     string answer;
     while(state == true){
         while(isFinished == false){
+            drawMap();
             checkNextStep();
 
             //mapSolvable = false;//temporary

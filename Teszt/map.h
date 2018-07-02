@@ -54,7 +54,7 @@ public:
     int getW() const;
     int getH() const;
     vector<string> getMap() const;
-    void setMap(const vector<string> &value);
+    void setMap(int x, int y, char value);
 };
 
 #endif // MAP_H

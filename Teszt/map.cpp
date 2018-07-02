@@ -45,9 +45,9 @@ vector<string> Map::getMap() const
     return map;
 }
 
-void Map::setMap(const vector<string> &value)
+void Map::setMap(int x, int y, char value)
 {
-    map = value;
+    map[x][y] = value;
 }
 
 Map::Map()
