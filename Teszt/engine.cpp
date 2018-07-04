@@ -73,8 +73,8 @@ void Engine::secretPaths(int x, int y)
 
 bool Engine::loopDetection()
 {
-    cout << "MapID: " << actualMapNum << endl;
-    unsigned int checkLength = 0;
+    //cout << "MapID: " << actualMapNum << endl;
+    int checkLength = 0;
     if(actualMap->getH() > actualMap->getW()){
         checkLength = actualMap->getH();
     }else{
@@ -85,7 +85,7 @@ bool Engine::loopDetection()
         for(int j=checkLength;j<prevSteps.size()/2.0;j++){
             isLoop = true;
             for(int i=prevSteps.size()-1;i>prevSteps.size()-1-j;i--){
-                cout << prevSteps[i] << " , " << prevSteps[i-j] << endl;
+                //cout << prevSteps[i] << " , " << prevSteps[i-j] << " , " << prevSteps[i-j*2] << " , " << prevSteps[i-j*3] << endl;
                 if(prevSteps[i] != prevSteps[i-j] || prevSteps[i] != prevSteps[i-j*2] || prevSteps[i] != prevSteps[i-j*3]){
                     isLoop = false;
                 }
@@ -371,6 +371,7 @@ void Engine::checkNextStep()
             }
         }
 
+        //OLD shuriken targeting
         /*for(int i=0;i<actualMap->getW();i++){
             if(actualMap->getMap()[ninjaData->getX()][i] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
                 ninjaData->throwShuriken();
@@ -414,9 +415,9 @@ void Engine::checkNextStep()
                 //west
                 if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == ' '){
                     move = true;
-                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
+                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
                     ninjaData->setY(ninjaData->getY() - 1);
-                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
+                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
                     allSteps << "WEST (move)" << endl;
                     prevSteps.push_back('W');
                 }
@@ -430,9 +431,9 @@ void Engine::checkNextStep()
                 if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == '*'){
                     move = true;
                     actualMap->setMap(ninjaData->getX(), ninjaData->getY()-1, ' ');
-                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
+                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
                     ninjaData->setY(ninjaData->getY() - 1);
-                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
+                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
                     ninjaData->addShuriken();
                     allSteps << "WEST (move, after that collected a shuriken)" << endl;
                     prevSteps.push_back('*');
@@ -441,7 +442,7 @@ void Engine::checkNextStep()
                     move = true;
                     ninjaData->setY(ninjaData->getY() - 1);
                     ninjaData->setBreakerMode(!(ninjaData->getBreakerMode()));
-                    if(ninjaData->getBreakerMode() == false){
+                    if(ninjaData->getBreakerMode() == true){
                         allSteps << "WEST (move, after that entered into breaker mode)" << endl;
                     }else{
                         allSteps << "WEST (move, after that moved out of breaker mode)" << endl;
@@ -456,9 +457,9 @@ void Engine::checkNextStep()
                 //south
                 if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == ' '){
                     move = true;
-                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
+                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
                     ninjaData->setX(ninjaData->getX() + 1);
-                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
+                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
                     allSteps << "SOUTH (move)" << endl;
                     prevSteps.push_back('S');
                 }
@@ -472,9 +473,9 @@ void Engine::checkNextStep()
                 if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == '*'){
                     move = true;
                     actualMap->setMap(ninjaData->getX()+1, ninjaData->getY(), ' ');
-                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
+                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
                     ninjaData->setX(ninjaData->getX() + 1);
-                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
+                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
                     ninjaData->addShuriken();
                     allSteps << "SOUTH (move, after that collected a shuriken)" << endl;
                     prevSteps.push_back('*');
@@ -483,7 +484,7 @@ void Engine::checkNextStep()
                     move = true;
                     ninjaData->setX(ninjaData->getX() + 1);
                     ninjaData->setBreakerMode(!(ninjaData->getBreakerMode()));
-                    if(ninjaData->getBreakerMode() == false){
+                    if(ninjaData->getBreakerMode() == true){
                         allSteps << "SOUTH (move, after that entered into breaker mode)" << endl;
                     }else{
                         allSteps << "SOUTH (move, after that moved out of breaker mode)" << endl;
@@ -498,9 +499,9 @@ void Engine::checkNextStep()
                 //east
                 if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == ' '){
                     move = true;
-                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
+                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
                     ninjaData->setY(ninjaData->getY() + 1);
-                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
+                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
                     allSteps << "EAST (move)" << endl;
                     prevSteps.push_back('E');
                 }
@@ -514,9 +515,9 @@ void Engine::checkNextStep()
                 if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == '*'){
                     move = true;
                     actualMap->setMap(ninjaData->getX(), ninjaData->getY()+1, ' ');
-                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
+                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
                     ninjaData->setY(ninjaData->getY() + 1);
-                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
+                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
                     ninjaData->addShuriken();
                     allSteps << "EAST (move, after that collected a shuriken)" << endl;
                     prevSteps.push_back('*');
@@ -525,7 +526,7 @@ void Engine::checkNextStep()
                     move = true;
                     ninjaData->setY(ninjaData->getY() + 1);
                     ninjaData->setBreakerMode(!(ninjaData->getBreakerMode()));
-                    if(ninjaData->getBreakerMode() == false){
+                    if(ninjaData->getBreakerMode() == true){
                         allSteps << "EAST (move, after that entered into breaker mode)" << endl;
                     }else{
                         allSteps << "EAST (move, after that moved out of breaker mode)" << endl;
@@ -540,9 +541,9 @@ void Engine::checkNextStep()
                 //north
                 if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == ' '){
                     move = true;
-                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
+                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
                     ninjaData->setX(ninjaData->getX() - 1);
-                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
+                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
                     allSteps << "NORTH (move)" << endl;
                     prevSteps.push_back('N');
                 }
@@ -556,9 +557,9 @@ void Engine::checkNextStep()
                 if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == '*'){
                     move = true;
                     actualMap->setMap(ninjaData->getX()-1, ninjaData->getY(), ' ');
-                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
+                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
                     ninjaData->setX(ninjaData->getX() - 1);
-                    actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
+                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
                     ninjaData->addShuriken();
                     allSteps << "NORTH (move, after that collected a shuriken)" << endl;
                     prevSteps.push_back('*');
@@ -567,7 +568,7 @@ void Engine::checkNextStep()
                     move = true;
                     ninjaData->setX(ninjaData->getX() - 1);
                     ninjaData->setBreakerMode(!(ninjaData->getBreakerMode()));
-                    if(ninjaData->getBreakerMode() == false){
+                    if(ninjaData->getBreakerMode() == true){
                         allSteps << "NORTH (move, after that entered into breaker mode)" << endl;
                     }else{
                         allSteps << "NORTH (move, after that moved out of breaker mode)" << endl;
@@ -740,7 +741,11 @@ void Engine::drawMap()
     allSteps << endl;
     for(int i=0;i<actualMap->getH();i++){
         for(int j=0;j<actualMap->getW();j++){
-            allSteps << actualMap->getMap()[i][j];
+            if(ninjaData->getX() == i && ninjaData->getY() == j){
+                allSteps << '@';
+            }else{
+                allSteps << actualMap->getMap()[i][j];
+            }
         }
         allSteps << endl;
     }
@@ -763,7 +768,7 @@ void Engine::update()
         allSteps.str("");
         prevSteps.erase(prevSteps.begin(), prevSteps.end());
         while(isFinished == false){
-            drawMap();
+            //drawMap();//testing purposes
             checkNextStep();
 
             mapSolvable = loopDetection();
@@ -772,33 +777,32 @@ void Engine::update()
                 isFinished = true;
             }
         }
-        cout << "GAME OVER! ";
         if(mapSolvable == true){
-            cout << "Map solved! : " << endl;
+            cout << "GAME OVER! Map solved! : " << endl;
             cout << allSteps.str() << endl;
         }else{
             cout << "LOOP (Map cannot be solved!)" << endl;
         }
         do{
-            if(actualMapNum < mapLoader->getMapCount()){
-                cout << "Do you wish to continue with next map? (y, n)" << endl;
-                cin >> answer;
-                if(toupper(answer[0]) == 'Y'){
-                    isFinished = false;
-                    mapSolvable = true;
-                    actualMapNum++;
-                    delete ninjaData;
+            cout << "Do you wish to continue with next map? (y, n)" << endl;
+            cin >> answer;
+            if(toupper(answer[0]) == 'Y'){
+                isFinished = false;
+                mapSolvable = true;
+                actualMapNum++;
+                delete ninjaData;
+                if(actualMapNum < mapLoader->getMapCount()){
                     //reinit some data
                     actualMap = mapLoader->getMap(actualMapNum);
 
                     ninjaData = new NinjaData(actualMap->getStartPoint()[0].x, actualMap->getStartPoint()[0].y);
                     //----------------
-                }
-                if(toupper(answer[0]) == 'N'){
+                }else{
+                    cout << endl << "All maps are done!" << endl;
                     state = false;
                 }
-            }else{
-                cout << "Played all maps! Exiting now!" << endl;
+            }
+            if(toupper(answer[0]) == 'N'){
                 state = false;
             }
         }while(toupper(answer[0]) != 'Y' && toupper(answer[0]) != 'N');

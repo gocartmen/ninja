@@ -99,6 +99,7 @@ void Map::findTokens()
                     //cout << "@" << endl;
                     newPos.x = i;
                     newPos.y = j;
+                    map[i][j] = ' ';
                     startPoint.push_back(newPos);
                     break;
                 }
@@ -128,8 +129,8 @@ void Map::findTokens()
                         newPortalPos.position[0].x = i;
                         newPortalPos.position[0].y = j;
                         int count = 0;
-                        for(int l=i;l<h;l++)
-                        for(int k=0;k<w;k++){
+                        for(int l=i;l<w;l++)
+                        for(int k=0;k<h;k++){
                             if(map[k][l] == 'F'){
                                 count++;
                                 if(count == 2){
@@ -149,8 +150,8 @@ void Map::findTokens()
                         newPortalPos.position[0].x = i;
                         newPortalPos.position[0].y = j;
                         int count = 0;
-                        for(int l=i;l<h;l++)
-                        for(int k=0;k<w;k++){
+                        for(int l=i;l<w;l++)
+                        for(int k=0;k<h;k++){
                             if(map[k][l] == 'G'){
                                 count++;
                                 if(count == 2){
@@ -170,8 +171,8 @@ void Map::findTokens()
                         newPortalPos.position[0].x = i;
                         newPortalPos.position[0].y = j;
                         int count = 0;
-                        for(int l=i;l<h;l++)
-                        for(int k=0;k<w;k++){
+                        for(int l=i;l<w;l++)
+                        for(int k=0;k<h;k++){
                             if(map[k][l] == 'H'){
                                 count++;
                                 if(count == 2){
@@ -191,8 +192,8 @@ void Map::findTokens()
                         newPortalPos.position[0].x = i;
                         newPortalPos.position[0].y = j;
                         int count = 0;
-                        for(int l=i;l<h;l++)
-                        for(int k=0;k<w;k++){
+                        for(int l=i;l<w;l++)
+                        for(int k=0;k<h;k++){
                             if(map[k][l] == 'I'){
                                 count++;
                                 if(count == 2){
@@ -212,8 +213,8 @@ void Map::findTokens()
                         newPortalPos.position[0].x = i;
                         newPortalPos.position[0].y = j;
                         int count = 0;
-                        for(int l=i;l<h;l++)
-                        for(int k=0;k<w;k++){
+                        for(int l=i;l<w;l++)
+                        for(int k=0;k<h;k++){
                             if(map[k][l] == 'J'){
                                 count++;
                                 if(count == 2){
@@ -233,8 +234,8 @@ void Map::findTokens()
                         newPortalPos.position[0].x = i;
                         newPortalPos.position[0].y = j;
                         int count = 0;
-                        for(int l=i;l<h;l++)
-                        for(int k=0;k<w;k++){
+                        for(int l=i;l<w;l++)
+                        for(int k=0;k<h;k++){
                             if(map[k][l] == 'K'){
                                 count++;
                                 if(count == 2){
@@ -254,8 +255,8 @@ void Map::findTokens()
                         newPortalPos.position[0].x = i;
                         newPortalPos.position[0].y = j;
                         int count = 0;
-                        for(int l=i;l<h;l++)
-                        for(int k=0;k<w;k++){
+                        for(int l=i;l<w;l++)
+                        for(int k=0;k<h;k++){
                             if(map[k][l] == 'L'){
                                 count++;
                                 if(count == 2){
