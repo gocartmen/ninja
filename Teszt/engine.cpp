@@ -60,12 +60,14 @@ void Engine::secretPaths(int x, int y)
        actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y] == 'L'){
         move = true;
         for(int i=0;i<actualMap->getPortals().size();i++){
-            if((actualMap->getPortals()[i].position[0].x == ninjaData->getX() && actualMap->getPortals()[i].position[0].y == ninjaData->getY())){
+            if((actualMap->getPortals()[i].position[0].x == ninjaData->getX()+x && actualMap->getPortals()[i].position[0].y == ninjaData->getY()+y)){
                 ninjaData->setX(actualMap->getPortals()[i].position[1].x);
                 ninjaData->setY(actualMap->getPortals()[i].position[1].y);
-            }else if((actualMap->getPortals()[i].position[1].x == ninjaData->getX() && actualMap->getPortals()[i].position[1].y == ninjaData->getY())){
+                allSteps << "Secret path used!" << endl;
+            }else if((actualMap->getPortals()[i].position[1].x == ninjaData->getX()+x && actualMap->getPortals()[i].position[1].y == ninjaData->getY()+y)){
                 ninjaData->setX(actualMap->getPortals()[i].position[0].x);
                 ninjaData->setY(actualMap->getPortals()[i].position[0].y);
+                allSteps << "Secret path used!" << endl;
             }
         }
     }
@@ -608,7 +610,7 @@ void Engine::checkNextStep()
 
 void Engine::drawMap()
 {
-    allSteps << endl;
+    /*allSteps << endl;
     for(int i=0;i<actualMap->getH();i++){
         for(int j=0;j<actualMap->getW();j++){
             if(ninjaData->getX() == i && ninjaData->getY() == j){
@@ -619,7 +621,7 @@ void Engine::drawMap()
         }
         allSteps << endl;
     }
-    allSteps << endl;
+    allSteps << endl;*/
 
     cout << endl;
     for(int i=0;i<actualMap->getH();i++){

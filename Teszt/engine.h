@@ -31,11 +31,14 @@ private:
     void setNewDirection(int x, int y);
     void secretPaths(int x, int y);
     bool loopDetection();
-    void checkNextStep();
     void drawMap();
+
+    //checkNextStep helper functions---
     void throwShuriken(bool &obstacle);
     void moveAction(string direction);
     void changeMoveDirection(string direction, string prev, string next);
+    //---------------------------------
+    void checkNextStep();
 public:
     Engine();
 
