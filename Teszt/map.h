@@ -23,9 +23,6 @@ private:
     int w = 0;
     int h = 0;
 
-    vector<struct pos> unbreakableWalls;
-    vector<struct pos> breakableWalls;
-
     vector<struct portalPos> portals;
     bool Fbool = false;
     bool Gbool = false;
@@ -35,10 +32,7 @@ private:
     bool Kbool = false;
     bool Lbool = false;
 
-    vector<struct pos> shurikens;
-
     vector<struct pos> startPoint;//this is vector because of later compatibility (if more ninjas)
-    struct pos holySymbol;
 public:
     Map();
     Map(string filename);
@@ -46,11 +40,7 @@ public:
     void findTokens();
 
     vector<pos> getStartPoint();
-    pos getHolySymbol() const;
-    vector<pos> getShurikens() const;
     vector<portalPos> getPortals() const;
-    vector<pos> getBreakableWalls() const;
-    vector<pos> getUnbreakableWalls() const;
     int getW() const;
     int getH() const;
     vector<string> getMap() const;

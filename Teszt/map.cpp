@@ -5,29 +5,9 @@ vector<Map::pos> Map::getStartPoint()
     return startPoint;
 }
 
-Map::pos Map::getHolySymbol() const
-{
-    return holySymbol;
-}
-
-vector<Map::pos> Map::getShurikens() const
-{
-    return shurikens;
-}
-
 vector<Map::portalPos> Map::getPortals() const
 {
     return portals;
-}
-
-vector<Map::pos> Map::getBreakableWalls() const
-{
-    return breakableWalls;
-}
-
-vector<Map::pos> Map::getUnbreakableWalls() const
-{
-    return unbreakableWalls;
 }
 
 int Map::getW() const
@@ -57,10 +37,7 @@ Map::Map()
 
 Map::Map(string filename)
 {
-    unbreakableWalls.reserve(400);
-    breakableWalls.reserve(400);
     portals.reserve(200);
-    shurikens.reserve(400);
 
     ifstream file;
     file.open(filename.c_str());
@@ -101,26 +78,6 @@ void Map::findTokens()
                     newPos.y = j;
                     map[i][j] = ' ';
                     startPoint.push_back(newPos);
-                    break;
-                }
-                case '$':{
-                    //cout << "$" << endl;
-                    holySymbol.x = i;
-                    holySymbol.y = j;
-                    break;
-                }
-                case '#':{
-                    //cout << "#" << endl;
-                    newPos.x = i;
-                    newPos.y = j;
-                    unbreakableWalls.push_back(newPos);
-                    break;
-                }
-                case 'X':{
-                    //cout << "X" << endl;
-                    newPos.x = i;
-                    newPos.y = j;
-                    breakableWalls.push_back(newPos);
                     break;
                 }
                 case 'F':{
@@ -247,13 +204,6 @@ void Map::findTokens()
                         portals.push_back(newPortalPos);
                         Lbool = true;
                     }
-                    break;
-                }
-                case '*':{
-                    //cout << "*" << endl;
-                    newPos.x = i;
-                    newPos.y = j;
-                    shurikens.push_back(newPos);
                     break;
                 }
             }
