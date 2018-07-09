@@ -83,7 +83,7 @@ bool Engine::loopDetection()
         checkLength = actualMap->getW();
     }
     bool isLoop = false;
-    if(prevSteps.size()-1 > checkLength*3){
+    if(prevSteps.size()-1 > checkLength*4){
         for(int j=checkLength;j<prevSteps.size()/2.0;j++){
             isLoop = true;
             for(int i=prevSteps.size()-1;i>prevSteps.size()-1-j;i--){
