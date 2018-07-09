@@ -98,314 +98,462 @@ bool Engine::loopDetection()
     return !isLoop;
 }
 
+void Engine::throwShuriken(bool &obstacle){
+    if(ninjaData->getIsMirrored() == false){
+        for(int i=ninjaData->getX();i<actualMap->getH();i++){
+            //cout << "11++" << endl;
+            if(obstacle == false){
+                if(actualMap->getMap()[i][ninjaData->getY()] == '#'){
+                    obstacle = true;
+                }
+                if(actualMap->getMap()[i][ninjaData->getY()] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
+                    ninjaData->throwShuriken();
+                    actualMap->setMap(i, ninjaData->getY(), ' ');
+                    shuriken = true;
+                    isFinished = true;
+                    allSteps << "THROW (throws a shuriken to destroy $)" << endl;
+                    prevSteps.push_back('T');
+                }
+            }
+        }
+        obstacle = false;
+        for(int i=ninjaData->getY();i<actualMap->getW();i++){
+            //cout << "12++" << endl;
+            if(obstacle == false){
+                if(actualMap->getMap()[ninjaData->getX()][i] == '#'){
+                    obstacle = true;
+                }
+                if(actualMap->getMap()[ninjaData->getX()][i] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
+                    ninjaData->throwShuriken();
+                    actualMap->setMap(ninjaData->getX(), i, ' ');
+                    shuriken = true;
+                    isFinished = true;
+                    allSteps << "THROW (throws a shuriken to destroy $)" << endl;
+                    prevSteps.push_back('T');
+                }
+            }
+        }
+        obstacle = false;
+        for(int i=ninjaData->getX();i>0;i--){
+            //cout << "13--" << endl;
+            if(obstacle == false){
+                if(actualMap->getMap()[i][ninjaData->getY()] == '#'){
+                    obstacle = true;
+                }
+                if(actualMap->getMap()[i][ninjaData->getY()] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
+                    ninjaData->throwShuriken();
+                    actualMap->setMap(i, ninjaData->getY(), ' ');
+                    shuriken = true;
+                    isFinished = true;
+                    allSteps << "THROW (throws a shuriken to destroy $)" << endl;
+                    prevSteps.push_back('T');
+                }
+            }
+        }
+        obstacle = false;
+        for(int i=ninjaData->getY();i>0;i--){
+            //cout << "14--" << endl;
+            if(obstacle == false){
+                if(actualMap->getMap()[ninjaData->getX()][i] == '#'){
+                    obstacle = true;
+                }
+                if(actualMap->getMap()[ninjaData->getX()][i] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
+                    ninjaData->throwShuriken();
+                    actualMap->setMap(ninjaData->getX(), i, ' ');
+                    shuriken = true;
+                    isFinished = true;
+                    allSteps << "THROW (throws a shuriken to destroy $)" << endl;
+                    prevSteps.push_back('T');
+                }
+            }
+        }
+    }else{
+        for(int i=ninjaData->getX();i<actualMap->getH();i++){
+            //cout << "21++" << endl;
+            if(obstacle == false){
+                if(actualMap->getMap()[i][ninjaData->getY()] == '#'){
+                    obstacle = true;
+                }
+                if(actualMap->getMap()[i][ninjaData->getY()] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
+                    ninjaData->throwShuriken();
+                    actualMap->setMap(i, ninjaData->getY(), ' ');
+                    shuriken = true;
+                    isFinished = true;
+                    allSteps << "THROW (throws a shuriken to destroy $)" << endl;
+                    prevSteps.push_back('T');
+                }
+            }
+        }
+        obstacle = false;
+        for(int i=ninjaData->getY();i>0;i--){
+            //cout << "22--" << endl;
+            if(obstacle == false){
+                if(actualMap->getMap()[ninjaData->getX()][i] == '#'){
+                    obstacle = true;
+                }
+                if(actualMap->getMap()[ninjaData->getX()][i] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
+                    ninjaData->throwShuriken();
+                    actualMap->setMap(ninjaData->getX(), i, ' ');
+                    shuriken = true;
+                    isFinished = true;
+                    allSteps << "THROW (throws a shuriken to destroy $)" << endl;
+                    prevSteps.push_back('T');
+                }
+            }
+        }
+        obstacle = false;
+        for(int i=ninjaData->getX();i>0;i--){
+            //cout << "23--" << endl;
+            if(obstacle == false){
+                if(actualMap->getMap()[i][ninjaData->getY()] == '#'){
+                    obstacle = true;
+                }
+                if(actualMap->getMap()[i][ninjaData->getY()] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
+                    ninjaData->throwShuriken();
+                    actualMap->setMap(i, ninjaData->getY(), ' ');
+                    shuriken = true;
+                    isFinished = true;
+                    allSteps << "THROW (throws a shuriken to destroy $)" << endl;
+                    prevSteps.push_back('T');
+                }
+            }
+        }
+        obstacle = false;
+        for(int i=ninjaData->getY();i<actualMap->getW();i++){
+            //cout << "24++" << endl;
+            if(obstacle == false){
+                if(actualMap->getMap()[ninjaData->getX()][i] == '#'){
+                    obstacle = true;
+                }
+                if(actualMap->getMap()[ninjaData->getX()][i] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
+                    ninjaData->throwShuriken();
+                    actualMap->setMap(ninjaData->getX(), i, ' ');
+                    shuriken = true;
+                    isFinished = true;
+                    allSteps << "THROW (throws a shuriken to destroy $)" << endl;
+                    prevSteps.push_back('T');
+                }
+            }
+        }
+    }
+    obstacle = false;
+    if(ninjaData->getIsMirrored() == false){
+        for(int i=ninjaData->getX();i<actualMap->getH();i++){
+            //cout << "11++" << endl;
+            if(obstacle == false){
+                if(actualMap->getMap()[i][ninjaData->getY()] == '#'){
+                    obstacle = true;
+                }
+                if(actualMap->getMap()[i][ninjaData->getY()] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
+                    ninjaData->throwShuriken();
+                    actualMap->setMap(i, ninjaData->getY(), '*');
+                    shuriken = true;
+                    allSteps << "THROW (throws a shuriken to destroy X)" << endl;
+                    prevSteps.push_back('T');
+                }
+            }
+        }
+        obstacle = false;
+        for(int i=ninjaData->getY();i<actualMap->getW();i++){
+            //cout << "12++" << endl;
+            if(obstacle == false){
+                if(actualMap->getMap()[ninjaData->getX()][i] == '#'){
+                    obstacle = true;
+                }
+                if(actualMap->getMap()[ninjaData->getX()][i] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
+                    ninjaData->throwShuriken();
+                    actualMap->setMap(ninjaData->getX(), i, '*');
+                    shuriken = true;
+                    allSteps << "THROW (throws a shuriken to destroy X)" << endl;
+                    prevSteps.push_back('T');
+                }
+            }
+        }
+        obstacle = false;
+        for(int i=ninjaData->getX();i>0;i--){
+            //cout << "13--" << endl;
+            if(obstacle == false){
+                if(actualMap->getMap()[i][ninjaData->getY()] == '#'){
+                    obstacle = true;
+                }
+                if(actualMap->getMap()[i][ninjaData->getY()] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
+                    ninjaData->throwShuriken();
+                    actualMap->setMap(i, ninjaData->getY(), '*');
+                    shuriken = true;
+                    allSteps << "THROW (throws a shuriken to destroy X)" << endl;
+                    prevSteps.push_back('T');
+                }
+            }
+        }
+        obstacle = false;
+        for(int i=ninjaData->getY();i>0;i--){
+            //cout << "14--" << endl;
+            if(obstacle == false){
+                if(actualMap->getMap()[ninjaData->getX()][i] == '#'){
+                    obstacle = true;
+                }
+                if(actualMap->getMap()[ninjaData->getX()][i] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
+                    ninjaData->throwShuriken();
+                    actualMap->setMap(ninjaData->getX(), i, '*');
+                    shuriken = true;
+                    allSteps << "THROW (throws a shuriken to destroy X)" << endl;
+                    prevSteps.push_back('T');
+                }
+            }
+        }
+    }else{
+        for(int i=ninjaData->getX();i<actualMap->getH();i++){
+            //cout << "21++" << endl;
+            if(obstacle == false){
+                if(actualMap->getMap()[i][ninjaData->getY()] == '#'){
+                    obstacle = true;
+                }
+                if(actualMap->getMap()[i][ninjaData->getY()] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
+                    ninjaData->throwShuriken();
+                    actualMap->setMap(i, ninjaData->getY(), '*');
+                    shuriken = true;
+                    allSteps << "THROW (throws a shuriken to destroy X)" << endl;
+                    prevSteps.push_back('T');
+                }
+            }
+        }
+        obstacle = false;
+        for(int i=ninjaData->getY();i>0;i--){
+            //cout << "22--" << endl;
+            if(obstacle == false){
+                if(actualMap->getMap()[ninjaData->getX()][i] == '#'){
+                    obstacle = true;
+                }
+                if(actualMap->getMap()[ninjaData->getX()][i] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
+                    ninjaData->throwShuriken();
+                    actualMap->setMap(ninjaData->getX(), i, '*');
+                    shuriken = true;
+                    allSteps << "THROW (throws a shuriken to destroy X)" << endl;
+                    prevSteps.push_back('T');
+                }
+            }
+        }
+        obstacle = false;
+        for(int i=ninjaData->getX();i>0;i--){
+            //cout << "23--" << endl;
+            if(obstacle == false){
+                if(actualMap->getMap()[i][ninjaData->getY()] == '#'){
+                    obstacle = true;
+                }
+                if(actualMap->getMap()[i][ninjaData->getY()] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
+                    ninjaData->throwShuriken();
+                    actualMap->setMap(i, ninjaData->getY(), '*');
+                    shuriken = true;
+                    allSteps << "THROW (throws a shuriken to destroy X)" << endl;
+                    prevSteps.push_back('T');
+                }
+            }
+        }
+        obstacle = false;
+        for(int i=ninjaData->getY();i<actualMap->getW();i++){
+            //cout << "24++" << endl;
+            if(obstacle == false){
+                if(actualMap->getMap()[ninjaData->getX()][i] == '#'){
+                    obstacle = true;
+                }
+                if(actualMap->getMap()[ninjaData->getX()][i] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
+                    ninjaData->throwShuriken();
+                    actualMap->setMap(ninjaData->getX(), i, '*');
+                    shuriken = true;
+                    allSteps << "THROW (throws a shuriken to destroy X)" << endl;
+                    prevSteps.push_back('T');
+                }
+            }
+        }
+    }
+
+    //OLD shuriken targeting
+    /*for(int i=0;i<actualMap->getW();i++){
+        if(actualMap->getMap()[ninjaData->getX()][i] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
+            ninjaData->throwShuriken();
+            actualMap->setMap(ninjaData->getX(), i, '*');
+            shuriken = true;
+            allSteps << "THROW (throws a shuriken to destroy X)" << endl;
+            prevSteps.push_back('T');
+        }
+        if(actualMap->getMap()[ninjaData->getX()][i] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
+            ninjaData->throwShuriken();
+            actualMap->setMap(ninjaData->getX(), i, ' ');
+            shuriken = true;
+            isFinished = true;
+            allSteps << "THROW (throws a shuriken to destroy $)" << endl;
+            prevSteps.push_back('T');
+        }
+    }
+    for(int i=0;i<actualMap->getH();i++){
+        if(actualMap->getMap()[i][ninjaData->getY()] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
+            ninjaData->throwShuriken();
+            actualMap->setMap(i, ninjaData->getY(), '*');
+            shuriken = true;
+            allSteps << "THROW (throws a shuriken to destroy X)" << endl;
+            prevSteps.push_back('T');
+        }
+        if(actualMap->getMap()[i][ninjaData->getY()] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
+            ninjaData->throwShuriken();
+            actualMap->setMap(i, ninjaData->getY(), ' ');
+            shuriken = true;
+            isFinished = true;
+            allSteps << "THROW (throws a shuriken to destroy $)" << endl;
+            prevSteps.push_back('T');
+        }
+    }*/
+}
+
+void Engine::moveAction(string direction){
+    int x=0;
+    int y=0;
+
+    switch(direction[0]){
+        case 'W':{
+            x = 0;
+            y = -1;
+            break;
+        }
+        case 'S':{
+            x = 1;
+            y = 0;
+            break;
+        }
+        case 'E':{
+            x = 0;
+            y = 1;
+            break;
+        }
+        case 'N':{
+            x = -1;
+            y = 0;
+        }
+    }
+
+    switch(actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y]){
+        case ' ':{
+            move = true;
+            //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
+            ninjaData->setX(ninjaData->getX() + x);
+            ninjaData->setY(ninjaData->getY() + y);
+            //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
+            allSteps << direction << " (move)" << endl;
+            prevSteps.push_back(direction[0]);
+            break;
+        }
+        case 'M':{
+            move = true;
+            ninjaData->setX(ninjaData->getX() + x);
+            ninjaData->setY(ninjaData->getY() + y);
+            ninjaData->setIsMirrored(!(ninjaData->getIsMirrored()));
+            allSteps << direction << " (move, after that mirrored priority in movement)" << endl;
+            prevSteps.push_back('M');
+            break;
+        }
+        case '*':{
+            move = true;
+            actualMap->setMap(ninjaData->getX()+x, ninjaData->getY()+y, ' ');
+            //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
+            ninjaData->setX(ninjaData->getX() + x);
+            ninjaData->setY(ninjaData->getY() + y);
+            //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
+            ninjaData->addShuriken();
+            allSteps << direction << " (move, after that collected a shuriken)" << endl;
+            prevSteps.push_back('*');
+            break;
+        }
+        case 'B':{
+            move = true;
+            ninjaData->setX(ninjaData->getX() + x);
+            ninjaData->setY(ninjaData->getY() + y);
+            ninjaData->setBreakerMode(!(ninjaData->getBreakerMode()));
+            if(ninjaData->getBreakerMode() == true){
+                allSteps << direction << " (move, after that entered into breaker mode)" << endl;
+            }else{
+                allSteps << direction << " (move, after that moved out of breaker mode)" << endl;
+            }
+            prevSteps.push_back('B');
+            break;
+        }
+    }
+
+    setNewDirection(x,y);
+    secretPaths(x,y);
+}
+
+void Engine::changeMoveDirection(string direction, string prev, string next){
+    int x=0;
+    int y=0;
+
+    switch(direction[0]){
+        case 'W':{
+            x = 0;
+            y = -1;
+            break;
+        }
+        case 'S':{
+            x = 1;
+            y = 0;
+            break;
+        }
+        case 'E':{
+            x = 0;
+            y = 1;
+            break;
+        }
+        case 'N':{
+            x = -1;
+            y = 0;
+        }
+    }
+
+    switch(actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y]){
+        case '#':{
+            changeDirection = true;
+            ninjaData->changeDirection();
+            if(ninjaData->getIsMirrored() == false){
+                allSteps << next << " (because of #)" << endl;
+            }else{
+                allSteps << prev << " (because of #)" << endl;
+            }
+            prevSteps.push_back('#');
+            break;
+        }
+        case 'X':{
+            changeDirection = true;
+            if(ninjaData->getBreakerMode()){
+                actualMap->setMap(ninjaData->getX()+x, ninjaData->getY()+y, ' ');
+                ninjaData->setX(ninjaData->getX() + x);
+                ninjaData->setY(ninjaData->getY() + y);
+                allSteps << direction << " (destroyed X in breaker mode)" << endl;
+                prevSteps.push_back('T');
+            }else{
+                ninjaData->changeDirection();
+                allSteps << next << " (because of X)" << endl;
+                prevSteps.push_back('X');
+            }
+            break;
+        }
+        case '$':{
+            changeDirection = true;
+            ninjaData->changeDirection();
+            if(ninjaData->getIsMirrored() == false){
+                allSteps << next << " (because of $)" << endl;
+            }else{
+                allSteps << prev << " (because of $)" << endl;
+            }
+            prevSteps.push_back('$');
+            break;
+        }
+    }
+}
+
 void Engine::checkNextStep()
 {
     shuriken = false;
     bool obstacle = false;
     if(ninjaData->getShurikens() > 0){//Throw Shuriken
-        if(ninjaData->getIsMirrored() == false){
-            for(int i=ninjaData->getX();i<actualMap->getH();i++){
-                //cout << "11++" << endl;
-                if(obstacle == false){
-                    if(actualMap->getMap()[i][ninjaData->getY()] == '#'){
-                        obstacle = true;
-                    }
-                    if(actualMap->getMap()[i][ninjaData->getY()] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
-                        ninjaData->throwShuriken();
-                        actualMap->setMap(i, ninjaData->getY(), ' ');
-                        shuriken = true;
-                        isFinished = true;
-                        allSteps << "THROW (throws a shuriken to destroy $)" << endl;
-                        prevSteps.push_back('T');
-                    }
-                }
-            }
-            obstacle = false;
-            for(int i=ninjaData->getY();i<actualMap->getW();i++){
-                //cout << "12++" << endl;
-                if(obstacle == false){
-                    if(actualMap->getMap()[ninjaData->getX()][i] == '#'){
-                        obstacle = true;
-                    }
-                    if(actualMap->getMap()[ninjaData->getX()][i] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
-                        ninjaData->throwShuriken();
-                        actualMap->setMap(ninjaData->getX(), i, ' ');
-                        shuriken = true;
-                        isFinished = true;
-                        allSteps << "THROW (throws a shuriken to destroy $)" << endl;
-                        prevSteps.push_back('T');
-                    }
-                }
-            }
-            obstacle = false;
-            for(int i=ninjaData->getX();i>0;i--){
-                //cout << "13--" << endl;
-                if(obstacle == false){
-                    if(actualMap->getMap()[i][ninjaData->getY()] == '#'){
-                        obstacle = true;
-                    }
-                    if(actualMap->getMap()[i][ninjaData->getY()] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
-                        ninjaData->throwShuriken();
-                        actualMap->setMap(i, ninjaData->getY(), ' ');
-                        shuriken = true;
-                        isFinished = true;
-                        allSteps << "THROW (throws a shuriken to destroy $)" << endl;
-                        prevSteps.push_back('T');
-                    }
-                }
-            }
-            obstacle = false;
-            for(int i=ninjaData->getY();i>0;i--){
-                //cout << "14--" << endl;
-                if(obstacle == false){
-                    if(actualMap->getMap()[ninjaData->getX()][i] == '#'){
-                        obstacle = true;
-                    }
-                    if(actualMap->getMap()[ninjaData->getX()][i] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
-                        ninjaData->throwShuriken();
-                        actualMap->setMap(ninjaData->getX(), i, ' ');
-                        shuriken = true;
-                        isFinished = true;
-                        allSteps << "THROW (throws a shuriken to destroy $)" << endl;
-                        prevSteps.push_back('T');
-                    }
-                }
-            }
-        }else{
-            for(int i=ninjaData->getX();i<actualMap->getH();i++){
-                //cout << "21++" << endl;
-                if(obstacle == false){
-                    if(actualMap->getMap()[i][ninjaData->getY()] == '#'){
-                        obstacle = true;
-                    }
-                    if(actualMap->getMap()[i][ninjaData->getY()] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
-                        ninjaData->throwShuriken();
-                        actualMap->setMap(i, ninjaData->getY(), ' ');
-                        shuriken = true;
-                        isFinished = true;
-                        allSteps << "THROW (throws a shuriken to destroy $)" << endl;
-                        prevSteps.push_back('T');
-                    }
-                }
-            }
-            obstacle = false;
-            for(int i=ninjaData->getY();i>0;i--){
-                //cout << "22--" << endl;
-                if(obstacle == false){
-                    if(actualMap->getMap()[ninjaData->getX()][i] == '#'){
-                        obstacle = true;
-                    }
-                    if(actualMap->getMap()[ninjaData->getX()][i] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
-                        ninjaData->throwShuriken();
-                        actualMap->setMap(ninjaData->getX(), i, ' ');
-                        shuriken = true;
-                        isFinished = true;
-                        allSteps << "THROW (throws a shuriken to destroy $)" << endl;
-                        prevSteps.push_back('T');
-                    }
-                }
-            }
-            obstacle = false;
-            for(int i=ninjaData->getX();i>0;i--){
-                //cout << "23--" << endl;
-                if(obstacle == false){
-                    if(actualMap->getMap()[i][ninjaData->getY()] == '#'){
-                        obstacle = true;
-                    }
-                    if(actualMap->getMap()[i][ninjaData->getY()] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
-                        ninjaData->throwShuriken();
-                        actualMap->setMap(i, ninjaData->getY(), ' ');
-                        shuriken = true;
-                        isFinished = true;
-                        allSteps << "THROW (throws a shuriken to destroy $)" << endl;
-                        prevSteps.push_back('T');
-                    }
-                }
-            }
-            obstacle = false;
-            for(int i=ninjaData->getY();i<actualMap->getW();i++){
-                //cout << "24++" << endl;
-                if(obstacle == false){
-                    if(actualMap->getMap()[ninjaData->getX()][i] == '#'){
-                        obstacle = true;
-                    }
-                    if(actualMap->getMap()[ninjaData->getX()][i] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
-                        ninjaData->throwShuriken();
-                        actualMap->setMap(ninjaData->getX(), i, ' ');
-                        shuriken = true;
-                        isFinished = true;
-                        allSteps << "THROW (throws a shuriken to destroy $)" << endl;
-                        prevSteps.push_back('T');
-                    }
-                }
-            }
-        }
-        obstacle = false;
-        if(ninjaData->getIsMirrored() == false){
-            for(int i=ninjaData->getX();i<actualMap->getH();i++){
-                //cout << "11++" << endl;
-                if(obstacle == false){
-                    if(actualMap->getMap()[i][ninjaData->getY()] == '#'){
-                        obstacle = true;
-                    }
-                    if(actualMap->getMap()[i][ninjaData->getY()] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
-                        ninjaData->throwShuriken();
-                        actualMap->setMap(i, ninjaData->getY(), '*');
-                        shuriken = true;
-                        allSteps << "THROW (throws a shuriken to destroy X)" << endl;
-                        prevSteps.push_back('T');
-                    }
-                }
-            }
-            obstacle = false;
-            for(int i=ninjaData->getY();i<actualMap->getW();i++){
-                //cout << "12++" << endl;
-                if(obstacle == false){
-                    if(actualMap->getMap()[ninjaData->getX()][i] == '#'){
-                        obstacle = true;
-                    }
-                    if(actualMap->getMap()[ninjaData->getX()][i] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
-                        ninjaData->throwShuriken();
-                        actualMap->setMap(ninjaData->getX(), i, '*');
-                        shuriken = true;
-                        allSteps << "THROW (throws a shuriken to destroy X)" << endl;
-                        prevSteps.push_back('T');
-                    }
-                }
-            }
-            obstacle = false;
-            for(int i=ninjaData->getX();i>0;i--){
-                //cout << "13--" << endl;
-                if(obstacle == false){
-                    if(actualMap->getMap()[i][ninjaData->getY()] == '#'){
-                        obstacle = true;
-                    }
-                    if(actualMap->getMap()[i][ninjaData->getY()] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
-                        ninjaData->throwShuriken();
-                        actualMap->setMap(i, ninjaData->getY(), '*');
-                        shuriken = true;
-                        allSteps << "THROW (throws a shuriken to destroy X)" << endl;
-                        prevSteps.push_back('T');
-                    }
-                }
-            }
-            obstacle = false;
-            for(int i=ninjaData->getY();i>0;i--){
-                //cout << "14--" << endl;
-                if(obstacle == false){
-                    if(actualMap->getMap()[ninjaData->getX()][i] == '#'){
-                        obstacle = true;
-                    }
-                    if(actualMap->getMap()[ninjaData->getX()][i] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
-                        ninjaData->throwShuriken();
-                        actualMap->setMap(ninjaData->getX(), i, '*');
-                        shuriken = true;
-                        allSteps << "THROW (throws a shuriken to destroy X)" << endl;
-                        prevSteps.push_back('T');
-                    }
-                }
-            }
-        }else{
-            for(int i=ninjaData->getX();i<actualMap->getH();i++){
-                //cout << "21++" << endl;
-                if(obstacle == false){
-                    if(actualMap->getMap()[i][ninjaData->getY()] == '#'){
-                        obstacle = true;
-                    }
-                    if(actualMap->getMap()[i][ninjaData->getY()] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
-                        ninjaData->throwShuriken();
-                        actualMap->setMap(i, ninjaData->getY(), '*');
-                        shuriken = true;
-                        allSteps << "THROW (throws a shuriken to destroy X)" << endl;
-                        prevSteps.push_back('T');
-                    }
-                }
-            }
-            obstacle = false;
-            for(int i=ninjaData->getY();i>0;i--){
-                //cout << "22--" << endl;
-                if(obstacle == false){
-                    if(actualMap->getMap()[ninjaData->getX()][i] == '#'){
-                        obstacle = true;
-                    }
-                    if(actualMap->getMap()[ninjaData->getX()][i] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
-                        ninjaData->throwShuriken();
-                        actualMap->setMap(ninjaData->getX(), i, '*');
-                        shuriken = true;
-                        allSteps << "THROW (throws a shuriken to destroy X)" << endl;
-                        prevSteps.push_back('T');
-                    }
-                }
-            }
-            obstacle = false;
-            for(int i=ninjaData->getX();i>0;i--){
-                //cout << "23--" << endl;
-                if(obstacle == false){
-                    if(actualMap->getMap()[i][ninjaData->getY()] == '#'){
-                        obstacle = true;
-                    }
-                    if(actualMap->getMap()[i][ninjaData->getY()] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
-                        ninjaData->throwShuriken();
-                        actualMap->setMap(i, ninjaData->getY(), '*');
-                        shuriken = true;
-                        allSteps << "THROW (throws a shuriken to destroy X)" << endl;
-                        prevSteps.push_back('T');
-                    }
-                }
-            }
-            obstacle = false;
-            for(int i=ninjaData->getY();i<actualMap->getW();i++){
-                //cout << "24++" << endl;
-                if(obstacle == false){
-                    if(actualMap->getMap()[ninjaData->getX()][i] == '#'){
-                        obstacle = true;
-                    }
-                    if(actualMap->getMap()[ninjaData->getX()][i] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
-                        ninjaData->throwShuriken();
-                        actualMap->setMap(ninjaData->getX(), i, '*');
-                        shuriken = true;
-                        allSteps << "THROW (throws a shuriken to destroy X)" << endl;
-                        prevSteps.push_back('T');
-                    }
-                }
-            }
-        }
-
-        //OLD shuriken targeting
-        /*for(int i=0;i<actualMap->getW();i++){
-            if(actualMap->getMap()[ninjaData->getX()][i] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
-                ninjaData->throwShuriken();
-                actualMap->setMap(ninjaData->getX(), i, '*');
-                shuriken = true;
-                allSteps << "THROW (throws a shuriken to destroy X)" << endl;
-                prevSteps.push_back('T');
-            }
-            if(actualMap->getMap()[ninjaData->getX()][i] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
-                ninjaData->throwShuriken();
-                actualMap->setMap(ninjaData->getX(), i, ' ');
-                shuriken = true;
-                isFinished = true;
-                allSteps << "THROW (throws a shuriken to destroy $)" << endl;
-                prevSteps.push_back('T');
-            }
-        }
-        for(int i=0;i<actualMap->getH();i++){
-            if(actualMap->getMap()[i][ninjaData->getY()] == 'X' && ninjaData->getShurikens() > 0 && shuriken == false){
-                ninjaData->throwShuriken();
-                actualMap->setMap(i, ninjaData->getY(), '*');
-                shuriken = true;
-                allSteps << "THROW (throws a shuriken to destroy X)" << endl;
-                prevSteps.push_back('T');
-            }
-            if(actualMap->getMap()[i][ninjaData->getY()] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
-                ninjaData->throwShuriken();
-                actualMap->setMap(i, ninjaData->getY(), ' ');
-                shuriken = true;
-                isFinished = true;
-                allSteps << "THROW (throws a shuriken to destroy $)" << endl;
-                prevSteps.push_back('T');
-            }
-        }*/
+        throwShuriken(obstacle);
     }
 
     move = false;
@@ -413,324 +561,46 @@ void Engine::checkNextStep()
         switch(ninjaData->getDirection()){
             case 3:{
                 //west
-                if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == ' '){
-                    move = true;
-                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
-                    ninjaData->setY(ninjaData->getY() - 1);
-                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
-                    allSteps << "WEST (move)" << endl;
-                    prevSteps.push_back('W');
-                }
-                if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == 'M'){
-                    move = true;
-                    ninjaData->setY(ninjaData->getY() - 1);
-                    ninjaData->setIsMirrored(!(ninjaData->getIsMirrored()));
-                    allSteps << "WEST (move, after that mirrored priority in movement)" << endl;
-                    prevSteps.push_back('M');
-                }
-                if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == '*'){
-                    move = true;
-                    actualMap->setMap(ninjaData->getX(), ninjaData->getY()-1, ' ');
-                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
-                    ninjaData->setY(ninjaData->getY() - 1);
-                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
-                    ninjaData->addShuriken();
-                    allSteps << "WEST (move, after that collected a shuriken)" << endl;
-                    prevSteps.push_back('*');
-                }
-                if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == 'B'){
-                    move = true;
-                    ninjaData->setY(ninjaData->getY() - 1);
-                    ninjaData->setBreakerMode(!(ninjaData->getBreakerMode()));
-                    if(ninjaData->getBreakerMode() == true){
-                        allSteps << "WEST (move, after that entered into breaker mode)" << endl;
-                    }else{
-                        allSteps << "WEST (move, after that moved out of breaker mode)" << endl;
-                    }
-                    prevSteps.push_back('B');
-                }
-                setNewDirection(0,-1);
-                secretPaths(0,-1);
+                moveAction("WEST");
                 break;
             }
             case 0:{
                 //south
-                if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == ' '){
-                    move = true;
-                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
-                    ninjaData->setX(ninjaData->getX() + 1);
-                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
-                    allSteps << "SOUTH (move)" << endl;
-                    prevSteps.push_back('S');
-                }
-                if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == 'M'){
-                    move = true;
-                    ninjaData->setX(ninjaData->getX() + 1);
-                    ninjaData->setIsMirrored(!(ninjaData->getIsMirrored()));
-                    allSteps << "SOUTH (move, after that mirrored priority in movement)" << endl;
-                    prevSteps.push_back('M');
-                }
-                if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == '*'){
-                    move = true;
-                    actualMap->setMap(ninjaData->getX()+1, ninjaData->getY(), ' ');
-                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
-                    ninjaData->setX(ninjaData->getX() + 1);
-                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
-                    ninjaData->addShuriken();
-                    allSteps << "SOUTH (move, after that collected a shuriken)" << endl;
-                    prevSteps.push_back('*');
-                }
-                if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == 'B'){
-                    move = true;
-                    ninjaData->setX(ninjaData->getX() + 1);
-                    ninjaData->setBreakerMode(!(ninjaData->getBreakerMode()));
-                    if(ninjaData->getBreakerMode() == true){
-                        allSteps << "SOUTH (move, after that entered into breaker mode)" << endl;
-                    }else{
-                        allSteps << "SOUTH (move, after that moved out of breaker mode)" << endl;
-                    }
-                    prevSteps.push_back('B');
-                }
-                setNewDirection(1,0);
-                secretPaths(1,0);
+                moveAction("SOUTH");
                 break;
             }
             case 1:{
                 //east
-                if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == ' '){
-                    move = true;
-                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
-                    ninjaData->setY(ninjaData->getY() + 1);
-                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
-                    allSteps << "EAST (move)" << endl;
-                    prevSteps.push_back('E');
-                }
-                if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == 'M'){
-                    move = true;
-                    ninjaData->setY(ninjaData->getY() + 1);
-                    ninjaData->setIsMirrored(!(ninjaData->getIsMirrored()));
-                    allSteps << "EAST (move, after that mirrored priority in movement)" << endl;
-                    prevSteps.push_back('M');
-                }
-                if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == '*'){
-                    move = true;
-                    actualMap->setMap(ninjaData->getX(), ninjaData->getY()+1, ' ');
-                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
-                    ninjaData->setY(ninjaData->getY() + 1);
-                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
-                    ninjaData->addShuriken();
-                    allSteps << "EAST (move, after that collected a shuriken)" << endl;
-                    prevSteps.push_back('*');
-                }
-                if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == 'B'){
-                    move = true;
-                    ninjaData->setY(ninjaData->getY() + 1);
-                    ninjaData->setBreakerMode(!(ninjaData->getBreakerMode()));
-                    if(ninjaData->getBreakerMode() == true){
-                        allSteps << "EAST (move, after that entered into breaker mode)" << endl;
-                    }else{
-                        allSteps << "EAST (move, after that moved out of breaker mode)" << endl;
-                    }
-                    prevSteps.push_back('B');
-                }
-                setNewDirection(0,1);
-                secretPaths(0,1);
+                moveAction("EAST");
                 break;
             }
             case 2:{
                 //north
-                if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == ' '){
-                    move = true;
-                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
-                    ninjaData->setX(ninjaData->getX() - 1);
-                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
-                    allSteps << "NORTH (move)" << endl;
-                    prevSteps.push_back('N');
-                }
-                if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == 'M'){
-                    move = true;
-                    ninjaData->setX(ninjaData->getX() - 1);
-                    ninjaData->setIsMirrored(!(ninjaData->getIsMirrored()));
-                    allSteps << "NORTH (move, after that mirrored priority in movement)" << endl;
-                    prevSteps.push_back('M');
-                }
-                if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == '*'){
-                    move = true;
-                    actualMap->setMap(ninjaData->getX()-1, ninjaData->getY(), ' ');
-                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
-                    ninjaData->setX(ninjaData->getX() - 1);
-                    //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
-                    ninjaData->addShuriken();
-                    allSteps << "NORTH (move, after that collected a shuriken)" << endl;
-                    prevSteps.push_back('*');
-                }
-                if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == 'B'){
-                    move = true;
-                    ninjaData->setX(ninjaData->getX() - 1);
-                    ninjaData->setBreakerMode(!(ninjaData->getBreakerMode()));
-                    if(ninjaData->getBreakerMode() == true){
-                        allSteps << "NORTH (move, after that entered into breaker mode)" << endl;
-                    }else{
-                        allSteps << "NORTH (move, after that moved out of breaker mode)" << endl;
-                    }
-                    prevSteps.push_back('B');
-                }
-                setNewDirection(-1,0);
-                secretPaths(-1,0);
+                moveAction("NORTH");
                 break;
             }
         }
-        if(move == false){
-            changeDirection = false;
-            switch(ninjaData->getDirection()){
-                case 3:{
-                    //west
-                    if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == '#'){
-                        changeDirection = true;
-                        ninjaData->changeDirection();
-                        if(ninjaData->getIsMirrored() == false){
-                            allSteps << "SOUTH (because of #)" << endl;
-                        }else{
-                            allSteps << "NORTH (because of #)" << endl;
-                        }
-                        prevSteps.push_back('#');
-                    }
-                    if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == 'X'){
-                        changeDirection = true;
-                        if(ninjaData->getBreakerMode()){
-                            actualMap->setMap(ninjaData->getX(), ninjaData->getY()-1, ' ');
-                            ninjaData->setY(ninjaData->getY() - 1);
-                            allSteps << "WEST (destroyed X in breaker mode)" << endl;
-                            prevSteps.push_back('T');
-                        }else{
-                            ninjaData->changeDirection();
-                            allSteps << "SOUTH (because of X)" << endl;
-                            prevSteps.push_back('X');
-                        }
-                    }
-                    if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()-1] == '$'){
-                        changeDirection = true;
-                        ninjaData->changeDirection();
-                        if(ninjaData->getIsMirrored() == false){
-                            allSteps << "SOUTH (because of $)" << endl;
-                        }else{
-                            allSteps << "NORTH (because of $)" << endl;
-                        }
-                        prevSteps.push_back('$');
-                    }
-                    break;
-                }
-                case 0:{
-                    //south
-                    if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == '#'){
-                        changeDirection = true;
-                        ninjaData->changeDirection();
-                        if(ninjaData->getIsMirrored() == false){
-                            allSteps << "EAST (because of #)" << endl;
-                        }else{
-                            allSteps << "WEST (because of #)" << endl;
-                        }
-                        prevSteps.push_back('#');
-                    }
-                    if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == 'X'){
-                        changeDirection = true;
-                        if(ninjaData->getBreakerMode()){
-                            actualMap->setMap(ninjaData->getX()+1, ninjaData->getY(), ' ');
-                            ninjaData->setX(ninjaData->getX() + 1);
-                            allSteps << "SOUTH (destroyed X in breaker mode)" << endl;
-                            prevSteps.push_back('T');
-                        }else{
-                            ninjaData->changeDirection();
-                            allSteps << "EAST (because of X)" << endl;
-                            prevSteps.push_back('X');
-                        }
-                    }
-                    if(actualMap->getMap()[ninjaData->getX()+1][ninjaData->getY()] == '$'){
-                        changeDirection = true;
-                        ninjaData->changeDirection();
-                        if(ninjaData->getIsMirrored() == false){
-                            allSteps << "EAST (because of $)" << endl;
-                        }else{
-                            allSteps << "WEST (because of $)" << endl;
-                        }
-                        prevSteps.push_back('$');
-                    }
-                    break;
-                }
-                case 1:{
-                    //east
-                    if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == '#'){
-                        changeDirection = true;
-                        ninjaData->changeDirection();
-                        if(ninjaData->getIsMirrored() == false){
-                            allSteps << "NORTH (because of #)" << endl;
-                        }else{
-                            allSteps << "SOUTH (because of #)" << endl;
-                        }
-                        prevSteps.push_back('#');
-                    }
-                    if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == 'X'){
-                        changeDirection = true;
-                        if(ninjaData->getBreakerMode()){
-                            actualMap->setMap(ninjaData->getX(), ninjaData->getY()+1, ' ');
-                            ninjaData->setY(ninjaData->getY() + 1);
-                            allSteps << "EAST (destroyed X in breaker mode)" << endl;
-                            prevSteps.push_back('T');
-                        }else{
-                            ninjaData->changeDirection();
-                            allSteps << "NORTH (because of X)" << endl;
-                            prevSteps.push_back('X');
-                        }
-                    }
-                    if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()+1] == '$'){
-                        changeDirection = true;
-                        ninjaData->changeDirection();
-                        if(ninjaData->getIsMirrored() == false){
-                            allSteps << "NORTH (because of $)" << endl;
-                        }else{
-                            allSteps << "SOUTH (because of $)" << endl;
-                        }
-                        prevSteps.push_back('$');
-                    }
-                    break;
-                }
-                case 2:{
-                    //north
-                    if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == '#'){
-                        changeDirection = true;
-                        ninjaData->changeDirection();
-                        if(ninjaData->getIsMirrored() == false){
-                            allSteps << "WEST (because of #)" << endl;
-                        }else{
-                            allSteps << "EAST (because of #)" << endl;
-                        }
-                        prevSteps.push_back('#');
-                    }
-                    if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == 'X'){
-                        changeDirection = true;
-                        if(ninjaData->getBreakerMode()){
-                            actualMap->setMap(ninjaData->getX()-1, ninjaData->getY(), ' ');
-                            ninjaData->setX(ninjaData->getX() - 1);
-                            allSteps << "NORTH (destroyed X in breaker mode)" << endl;
-                            prevSteps.push_back('T');
-                        }else{
-                            ninjaData->changeDirection();
-                            allSteps << "WEST (because of X)" << endl;
-                            prevSteps.push_back('X');
-                        }
-                    }
-                    if(actualMap->getMap()[ninjaData->getX()-1][ninjaData->getY()] == '$'){
-                        changeDirection = true;
-                        ninjaData->changeDirection();
-                        if(ninjaData->getIsMirrored() == false){
-                            allSteps << "WEST (because of $)" << endl;
-                        }else{
-                            allSteps << "EAST (because of $)" << endl;
-                        }
-                        prevSteps.push_back('$');
-                    }
-                    break;
-                }
+        changeDirection = false;
+        switch(ninjaData->getDirection()){
+            case 3:{
+                //west
+                changeMoveDirection("WEST","NORTH","SOUTH");
+                break;
+            }
+            case 0:{
+                //south
+                changeMoveDirection("SOUTH","WEST","EAST");
+                break;
+            }
+            case 1:{
+                //east
+                changeMoveDirection("EAST","SOUTH","NORTH");
+                break;
+            }
+            case 2:{
+                //north
+                changeMoveDirection("NORTH","EAST","WEST");
+                break;
             }
         }
     }
@@ -751,14 +621,18 @@ void Engine::drawMap()
     }
     allSteps << endl;
 
-    /*cout << endl;
+    cout << endl;
     for(int i=0;i<actualMap->getH();i++){
         for(int j=0;j<actualMap->getW();j++){
-            cout << actualMap->getMap()[i][j];
+            if(ninjaData->getX() == i && ninjaData->getY() == j){
+                cout << '@';
+            }else{
+                cout << actualMap->getMap()[i][j];
+            }
         }
         cout << endl;
     }
-    cout << endl;*/
+    cout << endl;
 }
 
 void Engine::update()
@@ -768,7 +642,7 @@ void Engine::update()
         allSteps.str("");
         prevSteps.erase(prevSteps.begin(), prevSteps.end());
         while(isFinished == false){
-            //drawMap();//testing purposes
+            drawMap();//testing purposes
             checkNextStep();
 
             mapSolvable = loopDetection();

@@ -33,6 +33,9 @@ private:
     bool loopDetection();
     void checkNextStep();
     void drawMap();
+    void throwShuriken(bool &obstacle);
+    void moveAction(string direction);
+    void changeMoveDirection(string direction, string prev, string next);
 public:
     Engine();
 
