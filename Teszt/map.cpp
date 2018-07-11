@@ -30,6 +30,16 @@ void Map::setMap(int x, int y, char value)
     map[x][y] = value;
 }
 
+vector<Map::timeBomb> Map::getBombs() const
+{
+    return bombs;
+}
+
+void Map::setBomb(int id, int value)
+{
+    bombs[id].timer = value;
+}
+
 Map::Map()
 {
 
@@ -204,6 +214,14 @@ void Map::findTokens()
                         portals.push_back(newPortalPos);
                         Lbool = true;
                     }
+                    break;
+                }
+                case '0' || '1' || '2' || '3' || '4' || '5' || '6' || '7' || '8' || '9':{
+                    struct timeBomb newBomb;
+                    newBomb.timer = map[i][j];
+                    newBomb.x = i;
+                    newBomb.y = j;
+                    bombs.push_back(newBomb);
                     break;
                 }
             }

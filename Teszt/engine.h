@@ -5,6 +5,8 @@
 #include "maploader.h"
 #include "ninjadata.h"
 
+#define BOMBRANGE 2
+
 class Engine
 {
 private:
@@ -39,6 +41,10 @@ private:
     void changeMoveDirection(string direction, string prev, string next);
     //---------------------------------
     void checkNextStep();
+
+    void checkBombs();
+    void detonate(int ID);
+    void earlyExplode(int x, int y, int actualBombID);
 public:
     Engine();
 

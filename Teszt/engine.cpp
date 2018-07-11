@@ -608,6 +608,91 @@ void Engine::checkNextStep()
     }
 }
 
+void Engine::detonate(int ID){
+    bool obstacle = false;
+    int stepCount = 0;
+    for(int k = actualMap->getBombs()[ID].x; k < actualMap->getH() && stepCount < BOMBRANGE && obstacle != true; k++){
+        if(actualMap->getMap()[k][actualMap->getBombs()[ID].y] == '#'){
+            obstacle = true;
+        }
+        if(actualMap->getMap()[k][actualMap->getBombs()[ID].y] == 'X' || actualMap->getMap()[k][actualMap->getBombs()[ID].y] == '*'){
+            actualMap->setMap(k, actualMap->getBombs()[ID].y, ' ');
+        }
+        earlyExplode(k, actualMap->getBombs()[ID].y, ID);
+        stepCount++;
+    }
+    obstacle = false;
+    stepCount = 0;
+    for(int k = actualMap->getBombs()[ID].x; k > 0 && stepCount < BOMBRANGE && obstacle != true; k--){
+        if(actualMap->getMap()[k][actualMap->getBombs()[ID].y] == '#'){
+            obstacle = true;
+        }
+        if(actualMap->getMap()[k][actualMap->getBombs()[ID].y] == 'X' || actualMap->getMap()[k][actualMap->getBombs()[ID].y] == '*'){
+            actualMap->setMap(k, actualMap->getBombs()[ID].y, ' ');
+        }
+        earlyExplode(k, actualMap->getBombs()[ID].y, ID);
+        stepCount++;
+    }
+    obstacle = false;
+    stepCount = 0;
+    for(int k = actualMap->getBombs()[ID].y; k < actualMap->getW() && stepCount < BOMBRANGE && obstacle != true; k++){
+        if(actualMap->getMap()[actualMap->getBombs()[ID].x][k] == '#'){
+            obstacle = true;
+        }
+        if(actualMap->getMap()[actualMap->getBombs()[ID].x][k] == 'X' || actualMap->getMap()[actualMap->getBombs()[ID].x][k] == '*'){
+            actualMap->setMap(actualMap->getBombs()[ID].x, k, ' ');
+        }
+        earlyExplode(actualMap->getBombs()[ID].x, k, ID);
+        stepCount++;
+    }
+    obstacle = false;
+    stepCount = 0;
+    for(int k = actualMap->getBombs()[ID].y; k > 0 && stepCount < BOMBRANGE && obstacle != true; k--){
+        if(actualMap->getMap()[actualMap->getBombs()[ID].x][k] == '#'){
+            obstacle = true;
+        }
+        if(actualMap->getMap()[actualMap->getBombs()[ID].x][k] == 'X' || actualMap->getMap()[actualMap->getBombs()[ID].x][k] == '*'){
+            actualMap->setMap(actualMap->getBombs()[ID].x, k, ' ');
+        }
+        earlyExplode(actualMap->getBombs()[ID].x, k, ID);
+        stepCount++;
+    }
+    actualMap->setBomb(ID, 0);
+    actualMap->setMap(actualMap->getBombs()[ID].x, actualMap->getBombs()[ID].y, actualMap->getBombs()[ID].timer);
+}
+
+void Engine::earlyExplode(int x, int y, int actualBombID)
+{
+    if(actualMap->getMap()[x][y] == '0' ||
+       actualMap->getMap()[x][y] == '1' ||
+       actualMap->getMap()[x][y] == '2' ||
+       actualMap->getMap()[x][y] == '3' ||
+       actualMap->getMap()[x][y] == '4' ||
+       actualMap->getMap()[x][y] == '5' ||
+       actualMap->getMap()[x][y] == '6' ||
+       actualMap->getMap()[x][y] == '7' ||
+       actualMap->getMap()[x][y] == '8' ||
+       actualMap->getMap()[x][y] == '9'){
+        for(int i=0;i<actualMap->getBombs().size();i++){
+            if(i != actualBombID && actualMap->getBombs()[i].timer > 0){
+                detonate(i);
+            }
+        }
+    }
+}
+
+void Engine::checkBombs()
+{
+    for(int i=0;i<actualMap->getBombs().size();i++){
+        if(actualMap->getBombs()[i].timer > 1){
+            actualMap->setBomb(i, actualMap->getBombs()[i].timer - 1);
+            actualMap->setMap(actualMap->getBombs()[i].x, actualMap->getBombs()[i].y,actualMap->getBombs()[i].timer);
+        }else{
+            detonate(i);
+        }
+    }
+}
+
 void Engine::drawMap()
 {
     /*allSteps << endl;
@@ -646,6 +731,8 @@ void Engine::update()
         while(isFinished == false){
             drawMap();//testing purposes
             checkNextStep();
+
+            checkBombs();//bonus 1
 
             mapSolvable = loopDetection();
 

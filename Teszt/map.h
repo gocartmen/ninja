@@ -18,6 +18,11 @@ public:
     struct portalPos{
         struct pos position[2];
     };
+    struct timeBomb{
+        int timer = 0;
+        int x = 0;
+        int y = 0;
+    };
 private:
     vector<string> map;
     int w = 0;
@@ -33,6 +38,7 @@ private:
     bool Lbool = false;
 
     vector<struct pos> startPoint;//this is vector because of later compatibility (if more ninjas)
+    vector<struct timeBomb> bombs;
 public:
     Map();
     Map(string filename);
@@ -45,6 +51,8 @@ public:
     int getH() const;
     vector<string> getMap() const;
     void setMap(int x, int y, char value);
+    vector<timeBomb> getBombs() const;
+    void setBomb(int id, int value);
 };
 
 #endif // MAP_H
