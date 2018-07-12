@@ -105,7 +105,7 @@ void Engine::throwShuriken(bool &obstacle){
         for(int i=ninjaData->getX();i<actualMap->getH();i++){
             //cout << "11++" << endl;
             if(obstacle == false){
-                if(actualMap->getMap()[i][ninjaData->getY()] == '#'){
+                if(actualMap->getMap()[i][ninjaData->getY()] == '#' || actualMap->getMap()[i][ninjaData->getY()] == 'X'){
                     obstacle = true;
                 }
                 if(actualMap->getMap()[i][ninjaData->getY()] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
@@ -122,7 +122,7 @@ void Engine::throwShuriken(bool &obstacle){
         for(int i=ninjaData->getY();i<actualMap->getW();i++){
             //cout << "12++" << endl;
             if(obstacle == false){
-                if(actualMap->getMap()[ninjaData->getX()][i] == '#'){
+                if(actualMap->getMap()[ninjaData->getX()][i] == '#' || actualMap->getMap()[ninjaData->getX()][i] == 'X'){
                     obstacle = true;
                 }
                 if(actualMap->getMap()[ninjaData->getX()][i] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
@@ -139,7 +139,7 @@ void Engine::throwShuriken(bool &obstacle){
         for(int i=ninjaData->getX();i>0;i--){
             //cout << "13--" << endl;
             if(obstacle == false){
-                if(actualMap->getMap()[i][ninjaData->getY()] == '#'){
+                if(actualMap->getMap()[i][ninjaData->getY()] == '#' || actualMap->getMap()[i][ninjaData->getY()] == 'X'){
                     obstacle = true;
                 }
                 if(actualMap->getMap()[i][ninjaData->getY()] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
@@ -156,7 +156,7 @@ void Engine::throwShuriken(bool &obstacle){
         for(int i=ninjaData->getY();i>0;i--){
             //cout << "14--" << endl;
             if(obstacle == false){
-                if(actualMap->getMap()[ninjaData->getX()][i] == '#'){
+                if(actualMap->getMap()[ninjaData->getX()][i] == '#' || actualMap->getMap()[ninjaData->getX()][i] == 'X'){
                     obstacle = true;
                 }
                 if(actualMap->getMap()[ninjaData->getX()][i] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
@@ -173,7 +173,7 @@ void Engine::throwShuriken(bool &obstacle){
         for(int i=ninjaData->getX();i<actualMap->getH();i++){
             //cout << "21++" << endl;
             if(obstacle == false){
-                if(actualMap->getMap()[i][ninjaData->getY()] == '#'){
+                if(actualMap->getMap()[i][ninjaData->getY()] == '#' || actualMap->getMap()[i][ninjaData->getY()] == 'X'){
                     obstacle = true;
                 }
                 if(actualMap->getMap()[i][ninjaData->getY()] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
@@ -190,7 +190,7 @@ void Engine::throwShuriken(bool &obstacle){
         for(int i=ninjaData->getY();i>0;i--){
             //cout << "22--" << endl;
             if(obstacle == false){
-                if(actualMap->getMap()[ninjaData->getX()][i] == '#'){
+                if(actualMap->getMap()[ninjaData->getX()][i] == '#' || actualMap->getMap()[ninjaData->getX()][i] == 'X'){
                     obstacle = true;
                 }
                 if(actualMap->getMap()[ninjaData->getX()][i] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
@@ -207,7 +207,7 @@ void Engine::throwShuriken(bool &obstacle){
         for(int i=ninjaData->getX();i>0;i--){
             //cout << "23--" << endl;
             if(obstacle == false){
-                if(actualMap->getMap()[i][ninjaData->getY()] == '#'){
+                if(actualMap->getMap()[i][ninjaData->getY()] == '#' || actualMap->getMap()[i][ninjaData->getY()] == 'X'){
                     obstacle = true;
                 }
                 if(actualMap->getMap()[i][ninjaData->getY()] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
@@ -224,7 +224,7 @@ void Engine::throwShuriken(bool &obstacle){
         for(int i=ninjaData->getY();i<actualMap->getW();i++){
             //cout << "24++" << endl;
             if(obstacle == false){
-                if(actualMap->getMap()[ninjaData->getX()][i] == '#'){
+                if(actualMap->getMap()[ninjaData->getX()][i] == '#' || actualMap->getMap()[ninjaData->getX()][i] == 'X'){
                     obstacle = true;
                 }
                 if(actualMap->getMap()[ninjaData->getX()][i] == '$' && ninjaData->getShurikens() > 0 && shuriken == false){
@@ -609,9 +609,12 @@ void Engine::checkNextStep()
 }
 
 void Engine::detonate(int ID){
+    actualMap->setBomb(ID, 0);
+
     bool obstacle = false;
     int stepCount = 0;
-    for(int k = actualMap->getBombs()[ID].x; k < actualMap->getH() && stepCount < BOMBRANGE && obstacle != true; k++){
+    //cout << "1" << endl;
+    for(int k = actualMap->getBombs()[ID].x; k < actualMap->getH() && stepCount <= BOMBRANGE && obstacle != true; k++){
         if(actualMap->getMap()[k][actualMap->getBombs()[ID].y] == '#'){
             obstacle = true;
         }
@@ -623,7 +626,8 @@ void Engine::detonate(int ID){
     }
     obstacle = false;
     stepCount = 0;
-    for(int k = actualMap->getBombs()[ID].x; k > 0 && stepCount < BOMBRANGE && obstacle != true; k--){
+    //cout << "2" << endl;
+    for(int k = actualMap->getBombs()[ID].x; k > 0 && stepCount <= BOMBRANGE && obstacle != true; k--){
         if(actualMap->getMap()[k][actualMap->getBombs()[ID].y] == '#'){
             obstacle = true;
         }
@@ -635,7 +639,8 @@ void Engine::detonate(int ID){
     }
     obstacle = false;
     stepCount = 0;
-    for(int k = actualMap->getBombs()[ID].y; k < actualMap->getW() && stepCount < BOMBRANGE && obstacle != true; k++){
+    //cout << "3" << endl;
+    for(int k = actualMap->getBombs()[ID].y; k < actualMap->getW() && stepCount <= BOMBRANGE && obstacle != true; k++){
         if(actualMap->getMap()[actualMap->getBombs()[ID].x][k] == '#'){
             obstacle = true;
         }
@@ -647,7 +652,8 @@ void Engine::detonate(int ID){
     }
     obstacle = false;
     stepCount = 0;
-    for(int k = actualMap->getBombs()[ID].y; k > 0 && stepCount < BOMBRANGE && obstacle != true; k--){
+    //cout << "4" << endl;
+    for(int k = actualMap->getBombs()[ID].y; k > 0 && stepCount <= BOMBRANGE && obstacle != true; k--){
         if(actualMap->getMap()[actualMap->getBombs()[ID].x][k] == '#'){
             obstacle = true;
         }
@@ -657,8 +663,7 @@ void Engine::detonate(int ID){
         earlyExplode(actualMap->getBombs()[ID].x, k, ID);
         stepCount++;
     }
-    actualMap->setBomb(ID, 0);
-    actualMap->setMap(actualMap->getBombs()[ID].x, actualMap->getBombs()[ID].y, actualMap->getBombs()[ID].timer);
+    actualMap->setMap(actualMap->getBombs()[ID].x, actualMap->getBombs()[ID].y, to_string(actualMap->getBombs()[ID].timer)[0]);
 }
 
 void Engine::earlyExplode(int x, int y, int actualBombID)
@@ -673,8 +678,9 @@ void Engine::earlyExplode(int x, int y, int actualBombID)
        actualMap->getMap()[x][y] == '7' ||
        actualMap->getMap()[x][y] == '8' ||
        actualMap->getMap()[x][y] == '9'){
+        //cout << "earlyExplode" << endl;
         for(int i=0;i<actualMap->getBombs().size();i++){
-            if(i != actualBombID && actualMap->getBombs()[i].timer > 0){
+            if(i != actualBombID && actualMap->getBombs()[i].timer > 0 && actualMap->getBombs()[i].x == x && actualMap->getBombs()[i].y == y){
                 detonate(i);
             }
         }
@@ -685,9 +691,11 @@ void Engine::checkBombs()
 {
     for(int i=0;i<actualMap->getBombs().size();i++){
         if(actualMap->getBombs()[i].timer > 1){
+            //cout << "bomb: " << i << endl;
             actualMap->setBomb(i, actualMap->getBombs()[i].timer - 1);
-            actualMap->setMap(actualMap->getBombs()[i].x, actualMap->getBombs()[i].y,actualMap->getBombs()[i].timer);
+            actualMap->setMap(actualMap->getBombs()[i].x, actualMap->getBombs()[i].y, to_string(actualMap->getBombs()[i].timer)[0]);
         }else{
+            //cout << "bomb: " << i << " detonate" << endl;
             detonate(i);
         }
     }

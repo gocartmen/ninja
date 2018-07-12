@@ -216,9 +216,81 @@ void Map::findTokens()
                     }
                     break;
                 }
-                case '0' || '1' || '2' || '3' || '4' || '5' || '6' || '7' || '8' || '9':{
+                case '0':{
                     struct timeBomb newBomb;
-                    newBomb.timer = map[i][j];
+                    newBomb.timer = 0;
+                    newBomb.x = i;
+                    newBomb.y = j;
+                    bombs.push_back(newBomb);
+                    break;
+                }
+                case '1':{
+                    struct timeBomb newBomb;
+                    newBomb.timer = 1;
+                    newBomb.x = i;
+                    newBomb.y = j;
+                    bombs.push_back(newBomb);
+                    break;
+                }
+                case '2':{
+                    struct timeBomb newBomb;
+                    newBomb.timer = 2;
+                    newBomb.x = i;
+                    newBomb.y = j;
+                    bombs.push_back(newBomb);
+                    break;
+                }
+                case '3':{
+                    struct timeBomb newBomb;
+                    newBomb.timer = 3;
+                    newBomb.x = i;
+                    newBomb.y = j;
+                    bombs.push_back(newBomb);
+                    break;
+                }
+                case '4':{
+                    struct timeBomb newBomb;
+                    newBomb.timer = 4;
+                    newBomb.x = i;
+                    newBomb.y = j;
+                    bombs.push_back(newBomb);
+                    break;
+                }
+                case '5':{
+                    struct timeBomb newBomb;
+                    newBomb.timer = 5;
+                    newBomb.x = i;
+                    newBomb.y = j;
+                    bombs.push_back(newBomb);
+                    break;
+                }
+                case '6':{
+                    struct timeBomb newBomb;
+                    newBomb.timer = 6;
+                    newBomb.x = i;
+                    newBomb.y = j;
+                    bombs.push_back(newBomb);
+                    break;
+                }
+                case '7':{
+                    struct timeBomb newBomb;
+                    newBomb.timer = 7;
+                    newBomb.x = i;
+                    newBomb.y = j;
+                    bombs.push_back(newBomb);
+                    break;
+                }
+                case '8':{
+                    struct timeBomb newBomb;
+                    newBomb.timer = 8;
+                    newBomb.x = i;
+                    newBomb.y = j;
+                    bombs.push_back(newBomb);
+                    break;
+                }
+                case '9':{
+                    struct timeBomb newBomb;
+                    newBomb.timer = 9;
                     newBomb.x = i;
                     newBomb.y = j;
                     bombs.push_back(newBomb);
