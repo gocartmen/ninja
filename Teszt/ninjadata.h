@@ -16,6 +16,7 @@ private:
     bool isMirrored = false;
 
     bool breakerMode = false;
+    bool alive = true;
 public:
     NinjaData();
     NinjaData(int x, int y);
@@ -35,6 +36,8 @@ public:
     void setIsMirrored(bool value);
     bool getBreakerMode() const;
     void setBreakerMode(bool value);
+    bool getAlive() const;
+    void setAlive(bool value);
 };
 
 #endif // NINJADATA_H

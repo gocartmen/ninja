@@ -608,6 +608,12 @@ void Engine::checkNextStep()
     }
 }
 
+void Engine::ninjaKill(int i, int j){
+    if(ninjaData->getX() == i && ninjaData->getY() == j){
+        ninjaData->setAlive(false);
+    }
+}
+
 void Engine::detonate(int ID){
     actualMap->setBombTimer(ID, 0);
 
@@ -621,6 +627,7 @@ void Engine::detonate(int ID){
         if(actualMap->getMap()[k][actualMap->getBombs()[ID].y] == 'X' || actualMap->getMap()[k][actualMap->getBombs()[ID].y] == '*'){
             actualMap->setMap(k, actualMap->getBombs()[ID].y, ' ');
         }
+        ninjaKill(k, actualMap->getBombs()[ID].y);
         earlyExplode(k, actualMap->getBombs()[ID].y, ID);
         stepCount++;
     }
@@ -634,6 +641,7 @@ void Engine::detonate(int ID){
         if(actualMap->getMap()[k][actualMap->getBombs()[ID].y] == 'X' || actualMap->getMap()[k][actualMap->getBombs()[ID].y] == '*'){
             actualMap->setMap(k, actualMap->getBombs()[ID].y, ' ');
         }
+        ninjaKill(k, actualMap->getBombs()[ID].y);
         earlyExplode(k, actualMap->getBombs()[ID].y, ID);
         stepCount++;
     }
@@ -647,6 +655,7 @@ void Engine::detonate(int ID){
         if(actualMap->getMap()[actualMap->getBombs()[ID].x][k] == 'X' || actualMap->getMap()[actualMap->getBombs()[ID].x][k] == '*'){
             actualMap->setMap(actualMap->getBombs()[ID].x, k, ' ');
         }
+        ninjaKill(actualMap->getBombs()[ID].x, k);
         earlyExplode(actualMap->getBombs()[ID].x, k, ID);
         stepCount++;
     }
@@ -660,6 +669,7 @@ void Engine::detonate(int ID){
         if(actualMap->getMap()[actualMap->getBombs()[ID].x][k] == 'X' || actualMap->getMap()[actualMap->getBombs()[ID].x][k] == '*'){
             actualMap->setMap(actualMap->getBombs()[ID].x, k, ' ');
         }
+        ninjaKill(actualMap->getBombs()[ID].x, k);
         earlyExplode(actualMap->getBombs()[ID].x, k, ID);
         stepCount++;
     }
@@ -754,10 +764,17 @@ void Engine::update()
             if(mapSolvable == false){
                 isFinished = true;
             }
+            if(ninjaData->getAlive() == false){
+                isFinished = true;
+            }
         }
         if(mapSolvable == true){
-            cout << "GAME OVER! Map solved! : " << endl;
-            cout << allSteps.str() << endl;
+            if(ninjaData->getAlive() == true){
+                cout << "GAME OVER! Map solved! : " << endl;
+                cout << allSteps.str() << endl;
+            }else{
+                cout << "GAME OVER! Ninja died in explosion!" << endl;
+            }
         }else{
             cout << "LOOP (Map cannot be solved!)" << endl;
         }

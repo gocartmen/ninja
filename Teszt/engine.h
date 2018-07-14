@@ -45,6 +45,7 @@ private:
     void checkBombs();
     void detonate(int ID);
     void earlyExplode(int x, int y, int actualBombID);
+    void ninjaKill(int i, int j);
 public:
     Engine();
 

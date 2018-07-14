@@ -55,6 +55,16 @@ void NinjaData::setBreakerMode(bool value)
     breakerMode = value;
 }
 
+bool NinjaData::getAlive() const
+{
+    return alive;
+}
+
+void NinjaData::setAlive(bool value)
+{
+    alive = value;
+}
+
 NinjaData::NinjaData()
 {
 
