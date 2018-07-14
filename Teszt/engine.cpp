@@ -433,6 +433,16 @@ void Engine::moveAction(string direction){
     }
 
     switch(actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y]){
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
         case ' ':{
             move = true;
             //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
@@ -755,8 +765,9 @@ void Engine::update()
         allSteps.str("");
         prevSteps.erase(prevSteps.begin(), prevSteps.end());
         while(isFinished == false){
-            drawMap();//testing purposes
             checkBombs();//bonus 1
+
+            drawMap();//testing purposes
             checkNextStep();
 
             mapSolvable = loopDetection();
