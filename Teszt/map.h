@@ -19,6 +19,8 @@ public:
         struct pos position[2];
     };
     struct timeBomb{
+        bool isDestroyed = false;
+        bool isActive = false;
         int timer = 0;
         int x = 0;
         int y = 0;
@@ -52,7 +54,9 @@ public:
     vector<string> getMap() const;
     void setMap(int x, int y, char value);
     vector<timeBomb> getBombs() const;
-    void setBomb(int id, int value);
+    void setBombTimer(int id, int value);
+    void setBombActive(int id, bool value);
+    void setBombDestroyed(int id, bool value);
 };
 
 #endif // MAP_H

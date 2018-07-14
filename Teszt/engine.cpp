@@ -609,7 +609,7 @@ void Engine::checkNextStep()
 }
 
 void Engine::detonate(int ID){
-    actualMap->setBomb(ID, 0);
+    actualMap->setBombTimer(ID, 0);
 
     bool obstacle = false;
     int stepCount = 0;
@@ -682,6 +682,7 @@ void Engine::earlyExplode(int x, int y, int actualBombID)
         for(int i=0;i<actualMap->getBombs().size();i++){
             if(i != actualBombID && actualMap->getBombs()[i].timer > 0 && actualMap->getBombs()[i].x == x && actualMap->getBombs()[i].y == y){
                 detonate(i);
+                actualMap->setBombDestroyed(i, true);
             }
         }
     }
@@ -690,13 +691,20 @@ void Engine::earlyExplode(int x, int y, int actualBombID)
 void Engine::checkBombs()
 {
     for(int i=0;i<actualMap->getBombs().size();i++){
-        if(actualMap->getBombs()[i].timer > 1){
-            //cout << "bomb: " << i << endl;
-            actualMap->setBomb(i, actualMap->getBombs()[i].timer - 1);
-            actualMap->setMap(actualMap->getBombs()[i].x, actualMap->getBombs()[i].y, to_string(actualMap->getBombs()[i].timer)[0]);
-        }else{
-            //cout << "bomb: " << i << " detonate" << endl;
-            detonate(i);
+        if(actualMap->getBombs()[i].isActive == true && actualMap->getBombs()[i].isDestroyed == false){
+            if(actualMap->getBombs()[i].timer > 1){
+                //cout << "bomb: " << i << endl;
+                actualMap->setBombTimer(i, actualMap->getBombs()[i].timer - 1);
+                actualMap->setMap(actualMap->getBombs()[i].x, actualMap->getBombs()[i].y, to_string(actualMap->getBombs()[i].timer)[0]);
+            }else{
+                //cout << "bomb: " << i << " detonate" << endl;
+                detonate(i);
+                actualMap->setBombDestroyed(i, true);
+            }
+        }
+        if((abs(actualMap->getBombs()[i].x - ninjaData->getX()) < 2 && actualMap->getBombs()[i].y == ninjaData->getY()) ||
+           (abs(actualMap->getBombs()[i].y - ninjaData->getY()) < 2 && actualMap->getBombs()[i].x == ninjaData->getX())){
+            actualMap->setBombActive(i, true);
         }
     }
 }
@@ -738,9 +746,8 @@ void Engine::update()
         prevSteps.erase(prevSteps.begin(), prevSteps.end());
         while(isFinished == false){
             drawMap();//testing purposes
-            checkNextStep();
-
             checkBombs();//bonus 1
+            checkNextStep();
 
             mapSolvable = loopDetection();
 

@@ -35,9 +35,19 @@ vector<Map::timeBomb> Map::getBombs() const
     return bombs;
 }
 
-void Map::setBomb(int id, int value)
+void Map::setBombTimer(int id, int value)
 {
     bombs[id].timer = value;
+}
+
+void Map::setBombActive(int id, bool value)
+{
+    bombs[id].isActive = value;
+}
+
+void Map::setBombDestroyed(int id, bool value)
+{
+    bombs[id].isDestroyed = value;
 }
 
 Map::Map()
