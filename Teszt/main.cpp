@@ -9,5 +9,7 @@ int main()
 
     engine->update();
 
+    delete engine;
+
     return 0;
 }

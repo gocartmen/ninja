@@ -51,20 +51,20 @@ void Engine::setNewDirection(int x, int y)
 
 void Engine::secretPaths(int x, int y)
 {
-    if(actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y] == 'F' ||
-       actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y] == 'G' ||
-       actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y] == 'H' ||
-       actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y] == 'I' ||
-       actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y] == 'J' ||
-       actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y] == 'K' ||
-       actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y] == 'L'){
+    if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()] == 'F' ||
+       actualMap->getMap()[ninjaData->getX()][ninjaData->getY()] == 'G' ||
+       actualMap->getMap()[ninjaData->getX()][ninjaData->getY()] == 'H' ||
+       actualMap->getMap()[ninjaData->getX()][ninjaData->getY()] == 'I' ||
+       actualMap->getMap()[ninjaData->getX()][ninjaData->getY()] == 'J' ||
+       actualMap->getMap()[ninjaData->getX()][ninjaData->getY()] == 'K' ||
+       actualMap->getMap()[ninjaData->getX()][ninjaData->getY()] == 'L'){
         move = true;
         for(int i=0;i<actualMap->getPortals().size();i++){
-            if((actualMap->getPortals()[i].position[0].x == ninjaData->getX()+x && actualMap->getPortals()[i].position[0].y == ninjaData->getY()+y)){
+            if((actualMap->getPortals()[i].position[0].x == ninjaData->getX() && actualMap->getPortals()[i].position[0].y == ninjaData->getY())){
                 ninjaData->setX(actualMap->getPortals()[i].position[1].x);
                 ninjaData->setY(actualMap->getPortals()[i].position[1].y);
                 allSteps << "Secret path used!" << endl;
-            }else if((actualMap->getPortals()[i].position[1].x == ninjaData->getX()+x && actualMap->getPortals()[i].position[1].y == ninjaData->getY()+y)){
+            }else if((actualMap->getPortals()[i].position[1].x == ninjaData->getX() && actualMap->getPortals()[i].position[1].y == ninjaData->getY())){
                 ninjaData->setX(actualMap->getPortals()[i].position[0].x);
                 ninjaData->setY(actualMap->getPortals()[i].position[0].y);
                 allSteps << "Secret path used!" << endl;
@@ -443,13 +443,20 @@ void Engine::moveAction(string direction){
         case '7':
         case '8':
         case '9':
+        case 'F':
+        case 'G':
+        case 'H':
+        case 'I':
+        case 'J':
+        case 'K':
+        case 'L':
         case ' ':{
             move = true;
             //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), ' ');
             ninjaData->setX(ninjaData->getX() + x);
             ninjaData->setY(ninjaData->getY() + y);
             //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
-            allSteps << direction << " (move)" << endl;
+            //allSteps << direction << " (move)" << endl;
             prevSteps.push_back(direction[0]);
             break;
         }
@@ -458,7 +465,7 @@ void Engine::moveAction(string direction){
             ninjaData->setX(ninjaData->getX() + x);
             ninjaData->setY(ninjaData->getY() + y);
             ninjaData->setIsMirrored(!(ninjaData->getIsMirrored()));
-            allSteps << direction << " (move, after that mirrored priority in movement)" << endl;
+            //allSteps << direction << " (move, after that mirrored priority in movement)" << endl;
             prevSteps.push_back('M');
             break;
         }
@@ -470,7 +477,7 @@ void Engine::moveAction(string direction){
             ninjaData->setY(ninjaData->getY() + y);
             //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
             ninjaData->addShuriken();
-            allSteps << direction << " (move, after that collected a shuriken)" << endl;
+            //allSteps << direction << " (move, after that collected a shuriken)" << endl;
             prevSteps.push_back('*');
             break;
         }
@@ -480,16 +487,23 @@ void Engine::moveAction(string direction){
             ninjaData->setY(ninjaData->getY() + y);
             ninjaData->setBreakerMode(!(ninjaData->getBreakerMode()));
             if(ninjaData->getBreakerMode() == true){
-                allSteps << direction << " (move, after that entered into breaker mode)" << endl;
+                //allSteps << direction << " (move, after that entered into breaker mode)" << endl;
             }else{
-                allSteps << direction << " (move, after that moved out of breaker mode)" << endl;
+                //allSteps << direction << " (move, after that moved out of breaker mode)" << endl;
             }
             prevSteps.push_back('B');
             break;
         }
     }
 
-    setNewDirection(x,y);
+    if(move != true){
+        setNewDirection(x,y);
+    }
+
+    if(move == true && shuriken == false){
+        allSteps << direction << endl;
+    }
+
     secretPaths(x,y);
 }
 
@@ -524,9 +538,9 @@ void Engine::changeMoveDirection(string direction, string prev, string next){
             changeDirection = true;
             ninjaData->changeDirection();
             if(ninjaData->getIsMirrored() == false){
-                allSteps << next << " (because of #)" << endl;
+                //allSteps << next << " (because of #)" << endl;
             }else{
-                allSteps << prev << " (because of #)" << endl;
+                //allSteps << prev << " (because of #)" << endl;
             }
             prevSteps.push_back('#');
             break;
@@ -537,11 +551,11 @@ void Engine::changeMoveDirection(string direction, string prev, string next){
                 actualMap->setMap(ninjaData->getX()+x, ninjaData->getY()+y, ' ');
                 ninjaData->setX(ninjaData->getX() + x);
                 ninjaData->setY(ninjaData->getY() + y);
-                allSteps << direction << " (destroyed X in breaker mode)" << endl;
+                //allSteps << direction << " (destroyed X in breaker mode)" << endl;
                 prevSteps.push_back('T');
             }else{
                 ninjaData->changeDirection();
-                allSteps << next << " (because of X)" << endl;
+                //allSteps << next << " (because of X)" << endl;
                 prevSteps.push_back('X');
             }
             break;
@@ -550,9 +564,9 @@ void Engine::changeMoveDirection(string direction, string prev, string next){
             changeDirection = true;
             ninjaData->changeDirection();
             if(ninjaData->getIsMirrored() == false){
-                allSteps << next << " (because of $)" << endl;
+                //allSteps << next << " (because of $)" << endl;
             }else{
-                allSteps << prev << " (because of $)" << endl;
+                //allSteps << prev << " (because of $)" << endl;
             }
             prevSteps.push_back('$');
             break;
@@ -592,27 +606,30 @@ void Engine::checkNextStep()
                 break;
             }
         }
-        changeDirection = false;
-        switch(ninjaData->getDirection()){
-            case 3:{
-                //west
-                changeMoveDirection("WEST","NORTH","SOUTH");
-                break;
-            }
-            case 0:{
-                //south
-                changeMoveDirection("SOUTH","WEST","EAST");
-                break;
-            }
-            case 1:{
-                //east
-                changeMoveDirection("EAST","SOUTH","NORTH");
-                break;
-            }
-            case 2:{
-                //north
-                changeMoveDirection("NORTH","EAST","WEST");
-                break;
+        changeDirection = true;
+        while(changeDirection == true){//change direction to make moving possible
+            changeDirection = false;
+            switch(ninjaData->getDirection()){
+                case 3:{
+                    //west
+                    changeMoveDirection("WEST","NORTH","SOUTH");
+                    break;
+                }
+                case 0:{
+                    //south
+                    changeMoveDirection("SOUTH","WEST","EAST");
+                    break;
+                }
+                case 1:{
+                    //east
+                    changeMoveDirection("EAST","SOUTH","NORTH");
+                    break;
+                }
+                case 2:{
+                    //north
+                    changeMoveDirection("NORTH","EAST","WEST");
+                    break;
+                }
             }
         }
     }
