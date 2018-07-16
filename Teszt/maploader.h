@@ -13,6 +13,7 @@ private:
     int mapCount = 0;
 public:
     MapLoader();
+    ~MapLoader();
 
     Map * getMap(int num);
     int getMapCount() const;

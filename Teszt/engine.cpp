@@ -27,6 +27,12 @@ Engine::Engine()
     changeDirection = false;
 }
 
+Engine::~Engine()
+{
+    delete nameGen;
+    delete mapLoader;
+}
+
 void Engine::setNewDirection(NinjaData * ninjaData, int x, int y)
 {
     if(actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y] == 'S'){
@@ -94,7 +100,7 @@ bool Engine::loopDetection()
             isLoop = true;
             for(int i=prevSteps.size()-1;i>prevSteps.size()-1-j;i--){
                 //cout << prevSteps[i] << " , " << prevSteps[i-j] << " , " << prevSteps[i-j*2] << " , " << prevSteps[i-j*3] << endl;
-                if(prevSteps[i] != prevSteps[i-j] || prevSteps[i] != prevSteps[i-j*2] || prevSteps[i] != prevSteps[i-j*3]){
+                if(prevSteps[i] != prevSteps[i-j]){
                     isLoop = false;
                 }
             }
@@ -807,7 +813,9 @@ void Engine::update()
                 checkNextStep(ninjaData[i]);
             }
 
-            mapSolvable = loopDetection();
+            if(prevSteps.size() > 0){
+                mapSolvable = loopDetection();
+            }
 
             if(mapSolvable == false){
                 isFinished = true;
@@ -855,6 +863,10 @@ void Engine::update()
                 }
             }
             if(toupper(answer[0]) == 'N'){
+                for(int i=0;i<actualMap->getStartPoint().size();i++){
+                    delete ninjaData[i];
+                }
+                delete [] ninjaData;
                 state = false;
             }
         }while(toupper(answer[0]) != 'Y' && toupper(answer[0]) != 'N');

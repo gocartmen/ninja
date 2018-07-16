@@ -30,6 +30,14 @@ MapLoader::MapLoader()
     }
 }
 
+MapLoader::~MapLoader()
+{
+    for(int i=0;i<mapCount;i++){
+        delete maps[i];
+    }
+    delete [] maps;
+}
+
 Map *MapLoader::getMap(int num)
 {
     return maps[num];

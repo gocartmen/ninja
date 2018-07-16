@@ -48,6 +48,7 @@ private:
     void ninjaKill(NinjaData *ninjaData, int i, int j);
 public:
     Engine();
+    ~Engine();
 
     void update();
 };
