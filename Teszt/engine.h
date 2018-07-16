@@ -12,7 +12,7 @@ class Engine
 private:
     NameGenerator * nameGen = NULL;
     MapLoader * mapLoader = NULL;
-    NinjaData * ninjaData = NULL;
+    NinjaData ** ninjaData = NULL;
 
     Map * actualMap = NULL;
 
@@ -30,22 +30,22 @@ private:
     bool shuriken;
     bool changeDirection;
 
-    void setNewDirection(int x, int y);
-    void secretPaths(int x, int y);
+    void setNewDirection(NinjaData *ninjaData, int x, int y);
+    void secretPaths(NinjaData *ninjaData, int x, int y);
     bool loopDetection();
     void drawMap();
 
     //checkNextStep helper functions---
-    void throwShuriken(bool &obstacle);
-    void moveAction(string direction);
-    void changeMoveDirection(string direction, string prev, string next);
+    void throwShuriken(NinjaData *ninjaData, bool &obstacle);
+    void moveAction(NinjaData *ninjaData, string direction);
+    void changeMoveDirection(NinjaData *ninjaData, string direction, string prev, string next);
     //---------------------------------
-    void checkNextStep();
+    void checkNextStep(NinjaData *ninjaData);
 
     void checkBombs();
     void detonate(int ID);
     void earlyExplode(int x, int y, int actualBombID);
-    void ninjaKill(int i, int j);
+    void ninjaKill(NinjaData *ninjaData, int i, int j);
 public:
     Engine();
 

@@ -17,6 +17,7 @@ private:
 
     bool breakerMode = false;
     bool alive = true;
+    bool isPlayer = false;
 public:
     NinjaData();
     NinjaData(int x, int y);
@@ -38,6 +39,8 @@ public:
     void setBreakerMode(bool value);
     bool getAlive() const;
     void setAlive(bool value);
+    bool getIsPlayer() const;
+    void setIsPlayer(bool value);
 };
 
 #endif // NINJADATA_H

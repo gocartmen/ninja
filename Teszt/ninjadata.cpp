@@ -65,6 +65,16 @@ void NinjaData::setAlive(bool value)
     alive = value;
 }
 
+bool NinjaData::getIsPlayer() const
+{
+    return isPlayer;
+}
+
+void NinjaData::setIsPlayer(bool value)
+{
+    isPlayer = value;
+}
+
 NinjaData::NinjaData()
 {
 

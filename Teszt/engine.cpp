@@ -12,7 +12,13 @@ Engine::Engine()
 
     actualMap = mapLoader->getMap(actualMapNum);
 
-    ninjaData = new NinjaData(actualMap->getStartPoint()[0].x, actualMap->getStartPoint()[0].y);
+    ninjaData = new NinjaData*[actualMap->getStartPoint().size()];
+    for(int i=0;i<actualMap->getStartPoint().size();i++){
+        ninjaData[i] = new NinjaData(actualMap->getStartPoint()[i].x, actualMap->getStartPoint()[i].y);
+        if(i == 0){
+            ninjaData[i]->setIsPlayer(true);
+        }
+    }
 
     move = false;
 
@@ -21,7 +27,7 @@ Engine::Engine()
     changeDirection = false;
 }
 
-void Engine::setNewDirection(int x, int y)
+void Engine::setNewDirection(NinjaData * ninjaData, int x, int y)
 {
     if(actualMap->getMap()[ninjaData->getX()+x][ninjaData->getY()+y] == 'S'){
         move = true;
@@ -49,7 +55,7 @@ void Engine::setNewDirection(int x, int y)
     }
 }
 
-void Engine::secretPaths(int x, int y)
+void Engine::secretPaths(NinjaData * ninjaData, int x, int y)
 {
     if(actualMap->getMap()[ninjaData->getX()][ninjaData->getY()] == 'F' ||
        actualMap->getMap()[ninjaData->getX()][ninjaData->getY()] == 'G' ||
@@ -100,7 +106,7 @@ bool Engine::loopDetection()
     return !isLoop;
 }
 
-void Engine::throwShuriken(bool &obstacle){
+void Engine::throwShuriken(NinjaData * ninjaData, bool &obstacle){
     if(ninjaData->getIsMirrored() == false){
         for(int i=ninjaData->getX();i<actualMap->getH();i++){
             //cout << "11++" << endl;
@@ -406,7 +412,7 @@ void Engine::throwShuriken(bool &obstacle){
     }*/
 }
 
-void Engine::moveAction(string direction){
+void Engine::moveAction(NinjaData * ninjaData, string direction){
     int x=0;
     int y=0;
 
@@ -497,17 +503,17 @@ void Engine::moveAction(string direction){
     }
 
     if(move != true){
-        setNewDirection(x,y);
+        setNewDirection(ninjaData, x,y);
     }
 
     if(move == true && shuriken == false){
         allSteps << direction << endl;
     }
 
-    secretPaths(x,y);
+    secretPaths(ninjaData, x,y);
 }
 
-void Engine::changeMoveDirection(string direction, string prev, string next){
+void Engine::changeMoveDirection(NinjaData * ninjaData, string direction, string prev, string next){
     int x=0;
     int y=0;
 
@@ -574,12 +580,12 @@ void Engine::changeMoveDirection(string direction, string prev, string next){
     }
 }
 
-void Engine::checkNextStep()
+void Engine::checkNextStep(NinjaData * ninjaData)
 {
     shuriken = false;
     bool obstacle = false;
     if(ninjaData->getShurikens() > 0){//Throw Shuriken
-        throwShuriken(obstacle);
+        throwShuriken(ninjaData, obstacle);
     }
 
     move = false;
@@ -587,22 +593,22 @@ void Engine::checkNextStep()
         switch(ninjaData->getDirection()){
             case 3:{
                 //west
-                moveAction("WEST");
+                moveAction(ninjaData, "WEST");
                 break;
             }
             case 0:{
                 //south
-                moveAction("SOUTH");
+                moveAction(ninjaData, "SOUTH");
                 break;
             }
             case 1:{
                 //east
-                moveAction("EAST");
+                moveAction(ninjaData, "EAST");
                 break;
             }
             case 2:{
                 //north
-                moveAction("NORTH");
+                moveAction(ninjaData, "NORTH");
                 break;
             }
         }
@@ -612,22 +618,22 @@ void Engine::checkNextStep()
             switch(ninjaData->getDirection()){
                 case 3:{
                     //west
-                    changeMoveDirection("WEST","NORTH","SOUTH");
+                    changeMoveDirection(ninjaData, "WEST","NORTH","SOUTH");
                     break;
                 }
                 case 0:{
                     //south
-                    changeMoveDirection("SOUTH","WEST","EAST");
+                    changeMoveDirection(ninjaData, "SOUTH","WEST","EAST");
                     break;
                 }
                 case 1:{
                     //east
-                    changeMoveDirection("EAST","SOUTH","NORTH");
+                    changeMoveDirection(ninjaData, "EAST","SOUTH","NORTH");
                     break;
                 }
                 case 2:{
                     //north
-                    changeMoveDirection("NORTH","EAST","WEST");
+                    changeMoveDirection(ninjaData, "NORTH","EAST","WEST");
                     break;
                 }
             }
@@ -635,7 +641,7 @@ void Engine::checkNextStep()
     }
 }
 
-void Engine::ninjaKill(int i, int j){
+void Engine::ninjaKill(NinjaData * ninjaData, int i, int j){
     if(ninjaData->getX() == i && ninjaData->getY() == j){
         ninjaData->setAlive(false);
     }
@@ -654,7 +660,9 @@ void Engine::detonate(int ID){
         if(actualMap->getMap()[k][actualMap->getBombs()[ID].y] == 'X' || actualMap->getMap()[k][actualMap->getBombs()[ID].y] == '*'){
             actualMap->setMap(k, actualMap->getBombs()[ID].y, ' ');
         }
-        ninjaKill(k, actualMap->getBombs()[ID].y);
+        for(int i=0;i<actualMap->getStartPoint().size();i++){
+            ninjaKill(ninjaData[i], k, actualMap->getBombs()[ID].y);
+        }
         earlyExplode(k, actualMap->getBombs()[ID].y, ID);
         stepCount++;
     }
@@ -668,7 +676,9 @@ void Engine::detonate(int ID){
         if(actualMap->getMap()[k][actualMap->getBombs()[ID].y] == 'X' || actualMap->getMap()[k][actualMap->getBombs()[ID].y] == '*'){
             actualMap->setMap(k, actualMap->getBombs()[ID].y, ' ');
         }
-        ninjaKill(k, actualMap->getBombs()[ID].y);
+        for(int i=0;i<actualMap->getStartPoint().size();i++){
+            ninjaKill(ninjaData[i], k, actualMap->getBombs()[ID].y);
+        }
         earlyExplode(k, actualMap->getBombs()[ID].y, ID);
         stepCount++;
     }
@@ -682,7 +692,9 @@ void Engine::detonate(int ID){
         if(actualMap->getMap()[actualMap->getBombs()[ID].x][k] == 'X' || actualMap->getMap()[actualMap->getBombs()[ID].x][k] == '*'){
             actualMap->setMap(actualMap->getBombs()[ID].x, k, ' ');
         }
-        ninjaKill(actualMap->getBombs()[ID].x, k);
+        for(int i=0;i<actualMap->getStartPoint().size();i++){
+            ninjaKill(ninjaData[i], actualMap->getBombs()[ID].x, k);
+        }
         earlyExplode(actualMap->getBombs()[ID].x, k, ID);
         stepCount++;
     }
@@ -696,7 +708,9 @@ void Engine::detonate(int ID){
         if(actualMap->getMap()[actualMap->getBombs()[ID].x][k] == 'X' || actualMap->getMap()[actualMap->getBombs()[ID].x][k] == '*'){
             actualMap->setMap(actualMap->getBombs()[ID].x, k, ' ');
         }
-        ninjaKill(actualMap->getBombs()[ID].x, k);
+        for(int i=0;i<actualMap->getStartPoint().size();i++){
+            ninjaKill(ninjaData[i], actualMap->getBombs()[ID].x, k);
+        }
         earlyExplode(actualMap->getBombs()[ID].x, k, ID);
         stepCount++;
     }
@@ -739,9 +753,11 @@ void Engine::checkBombs()
                 actualMap->setBombDestroyed(i, true);
             }
         }
-        if((abs(actualMap->getBombs()[i].x - ninjaData->getX()) < 2 && actualMap->getBombs()[i].y == ninjaData->getY()) ||
-           (abs(actualMap->getBombs()[i].y - ninjaData->getY()) < 2 && actualMap->getBombs()[i].x == ninjaData->getX())){
-            actualMap->setBombActive(i, true);
+        for(int k=0;k<actualMap->getStartPoint().size();k++){
+            if((abs(actualMap->getBombs()[i].x - ninjaData[k]->getX()) < 2 && actualMap->getBombs()[i].y == ninjaData[k]->getY()) ||
+               (abs(actualMap->getBombs()[i].y - ninjaData[k]->getY()) < 2 && actualMap->getBombs()[i].x == ninjaData[k]->getX())){
+                actualMap->setBombActive(i, true);
+            }
         }
     }
 }
@@ -764,10 +780,12 @@ void Engine::drawMap()
     cout << endl;
     for(int i=0;i<actualMap->getH();i++){
         for(int j=0;j<actualMap->getW();j++){
-            if(ninjaData->getX() == i && ninjaData->getY() == j){
-                cout << '@';
-            }else{
-                cout << actualMap->getMap()[i][j];
+            for(int k=0;k<actualMap->getStartPoint().size();k++){
+                if(ninjaData[k]->getX() == i && ninjaData[k]->getY() == j){
+                    cout << '@';
+                }else{
+                    cout << actualMap->getMap()[i][j];
+                }
             }
         }
         cout << endl;
@@ -785,19 +803,21 @@ void Engine::update()
             checkBombs();//bonus 1
 
             drawMap();//testing purposes
-            checkNextStep();
+            for(int i=0;i<actualMap->getStartPoint().size();i++){//bonus 2
+                checkNextStep(ninjaData[i]);
+            }
 
             mapSolvable = loopDetection();
 
             if(mapSolvable == false){
                 isFinished = true;
             }
-            if(ninjaData->getAlive() == false){
+            if(ninjaData[0]->getAlive() == false){
                 isFinished = true;
             }
         }
         if(mapSolvable == true){
-            if(ninjaData->getAlive() == true){
+            if(ninjaData[0]->getAlive() == true){
                 cout << "GAME OVER! Map solved! : " << endl;
                 cout << allSteps.str() << endl;
             }else{
@@ -813,12 +833,21 @@ void Engine::update()
                 isFinished = false;
                 mapSolvable = true;
                 actualMapNum++;
-                delete ninjaData;
+                for(int i=0;i<actualMap->getStartPoint().size();i++){
+                    delete ninjaData[i];
+                }
+                delete [] ninjaData;
                 if(actualMapNum < mapLoader->getMapCount()){
                     //reinit some data
                     actualMap = mapLoader->getMap(actualMapNum);
 
-                    ninjaData = new NinjaData(actualMap->getStartPoint()[0].x, actualMap->getStartPoint()[0].y);
+                    ninjaData = new NinjaData*[actualMap->getStartPoint().size()];
+                    for(int i=0;i<actualMap->getStartPoint().size();i++){
+                        ninjaData[i] = new NinjaData(actualMap->getStartPoint()[i].x, actualMap->getStartPoint()[i].y);
+                        if(i == 0){
+                            ninjaData[i]->setIsPlayer(true);
+                        }
+                    }
                     //----------------
                 }else{
                     cout << endl << "All maps are done!" << endl;
