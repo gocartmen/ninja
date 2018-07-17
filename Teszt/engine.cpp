@@ -274,8 +274,10 @@ void Engine::throwShuriken(NinjaData * ninjaData, bool &obstacle){
                     ninjaData->throwShuriken();
                     actualMap->setMap(i, ninjaData->getY(), '*');
                     shuriken = true;
-                    allSteps << "THROW (throws a shuriken to destroy X)" << endl;
-                    prevSteps.push_back('T');
+                    if(ninjaData->getIsPlayer() == true){
+                        allSteps << "THROW (throws a shuriken to destroy X)" << endl;
+                        prevSteps.push_back('T');
+                    }
                 }
             }
         }
@@ -290,8 +292,10 @@ void Engine::throwShuriken(NinjaData * ninjaData, bool &obstacle){
                     ninjaData->throwShuriken();
                     actualMap->setMap(ninjaData->getX(), i, '*');
                     shuriken = true;
-                    allSteps << "THROW (throws a shuriken to destroy X)" << endl;
-                    prevSteps.push_back('T');
+                    if(ninjaData->getIsPlayer() == true){
+                        allSteps << "THROW (throws a shuriken to destroy X)" << endl;
+                        prevSteps.push_back('T');
+                    }
                 }
             }
         }
@@ -306,8 +310,10 @@ void Engine::throwShuriken(NinjaData * ninjaData, bool &obstacle){
                     ninjaData->throwShuriken();
                     actualMap->setMap(i, ninjaData->getY(), '*');
                     shuriken = true;
-                    allSteps << "THROW (throws a shuriken to destroy X)" << endl;
-                    prevSteps.push_back('T');
+                    if(ninjaData->getIsPlayer() == true){
+                        allSteps << "THROW (throws a shuriken to destroy X)" << endl;
+                        prevSteps.push_back('T');
+                    }
                 }
             }
         }
@@ -322,8 +328,10 @@ void Engine::throwShuriken(NinjaData * ninjaData, bool &obstacle){
                     ninjaData->throwShuriken();
                     actualMap->setMap(ninjaData->getX(), i, '*');
                     shuriken = true;
-                    allSteps << "THROW (throws a shuriken to destroy X)" << endl;
-                    prevSteps.push_back('T');
+                    if(ninjaData->getIsPlayer() == true){
+                        allSteps << "THROW (throws a shuriken to destroy X)" << endl;
+                        prevSteps.push_back('T');
+                    }
                 }
             }
         }
@@ -338,8 +346,10 @@ void Engine::throwShuriken(NinjaData * ninjaData, bool &obstacle){
                     ninjaData->throwShuriken();
                     actualMap->setMap(i, ninjaData->getY(), '*');
                     shuriken = true;
-                    allSteps << "THROW (throws a shuriken to destroy X)" << endl;
-                    prevSteps.push_back('T');
+                    if(ninjaData->getIsPlayer() == true){
+                        allSteps << "THROW (throws a shuriken to destroy X)" << endl;
+                        prevSteps.push_back('T');
+                    }
                 }
             }
         }
@@ -354,8 +364,10 @@ void Engine::throwShuriken(NinjaData * ninjaData, bool &obstacle){
                     ninjaData->throwShuriken();
                     actualMap->setMap(ninjaData->getX(), i, '*');
                     shuriken = true;
-                    allSteps << "THROW (throws a shuriken to destroy X)" << endl;
-                    prevSteps.push_back('T');
+                    if(ninjaData->getIsPlayer() == true){
+                        allSteps << "THROW (throws a shuriken to destroy X)" << endl;
+                        prevSteps.push_back('T');
+                    }
                 }
             }
         }
@@ -370,8 +382,10 @@ void Engine::throwShuriken(NinjaData * ninjaData, bool &obstacle){
                     ninjaData->throwShuriken();
                     actualMap->setMap(i, ninjaData->getY(), '*');
                     shuriken = true;
-                    allSteps << "THROW (throws a shuriken to destroy X)" << endl;
-                    prevSteps.push_back('T');
+                    if(ninjaData->getIsPlayer() == true){
+                        allSteps << "THROW (throws a shuriken to destroy X)" << endl;
+                        prevSteps.push_back('T');
+                    }
                 }
             }
         }
@@ -386,8 +400,10 @@ void Engine::throwShuriken(NinjaData * ninjaData, bool &obstacle){
                     ninjaData->throwShuriken();
                     actualMap->setMap(ninjaData->getX(), i, '*');
                     shuriken = true;
-                    allSteps << "THROW (throws a shuriken to destroy X)" << endl;
-                    prevSteps.push_back('T');
+                    if(ninjaData->getIsPlayer() == true){
+                        allSteps << "THROW (throws a shuriken to destroy X)" << endl;
+                        prevSteps.push_back('T');
+                    }
                 }
             }
         }
@@ -481,7 +497,9 @@ void Engine::moveAction(NinjaData * ninjaData, string direction){
             ninjaData->setY(ninjaData->getY() + y);
             //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
             //allSteps << direction << " (move)" << endl;
-            prevSteps.push_back(direction[0]);
+            if(ninjaData->getIsPlayer()){
+                prevSteps.push_back(direction[0]);
+            }
             break;
         }
         case 'M':{
@@ -490,7 +508,9 @@ void Engine::moveAction(NinjaData * ninjaData, string direction){
             ninjaData->setY(ninjaData->getY() + y);
             ninjaData->setIsMirrored(!(ninjaData->getIsMirrored()));
             //allSteps << direction << " (move, after that mirrored priority in movement)" << endl;
-            prevSteps.push_back('M');
+            if(ninjaData->getIsPlayer()){
+                prevSteps.push_back('M');
+            }
             break;
         }
         case '*':{
@@ -502,7 +522,9 @@ void Engine::moveAction(NinjaData * ninjaData, string direction){
             //actualMap->setMap(ninjaData->getX(), ninjaData->getY(), '@');
             ninjaData->addShuriken();
             //allSteps << direction << " (move, after that collected a shuriken)" << endl;
-            prevSteps.push_back('*');
+            if(ninjaData->getIsPlayer()){
+                prevSteps.push_back('*');
+            }
             break;
         }
         case 'B':{
@@ -515,7 +537,9 @@ void Engine::moveAction(NinjaData * ninjaData, string direction){
             }else{
                 //allSteps << direction << " (move, after that moved out of breaker mode)" << endl;
             }
-            prevSteps.push_back('B');
+            if(ninjaData->getIsPlayer()){
+                prevSteps.push_back('B');
+            }
             break;
         }
     }
@@ -566,7 +590,9 @@ void Engine::changeMoveDirection(NinjaData * ninjaData, string direction, string
             }else{
                 //allSteps << prev << " (because of #)" << endl;
             }
-            prevSteps.push_back('#');
+            if(ninjaData->getIsPlayer()){
+                prevSteps.push_back('#');
+            }
             break;
         }
         case 'X':{
@@ -576,11 +602,15 @@ void Engine::changeMoveDirection(NinjaData * ninjaData, string direction, string
                 ninjaData->setX(ninjaData->getX() + x);
                 ninjaData->setY(ninjaData->getY() + y);
                 //allSteps << direction << " (destroyed X in breaker mode)" << endl;
-                prevSteps.push_back('T');
+                if(ninjaData->getIsPlayer()){
+                    prevSteps.push_back('T');
+                }
             }else{
                 ninjaData->changeDirection();
                 //allSteps << next << " (because of X)" << endl;
-                prevSteps.push_back('X');
+                if(ninjaData->getIsPlayer()){
+                    prevSteps.push_back('X');
+                }
             }
             break;
         }
@@ -597,7 +627,9 @@ void Engine::changeMoveDirection(NinjaData * ninjaData, string direction, string
             }else{
                 //allSteps << prev << " (because of $)" << endl;
             }
-            prevSteps.push_back('$');
+            if(ninjaData->getIsPlayer()){
+                prevSteps.push_back('$');
+            }
             break;
         }
     }
