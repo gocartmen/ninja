@@ -586,6 +586,77 @@ void Engine::changeMoveDirection(NinjaData * ninjaData, string direction, string
     }
 }
 
+int Engine::compareStrength(int first, int second){
+    if(first < second){
+        return 2;
+    }else if(first > second){
+        return 1;
+    }else{// first == second
+        return 0;
+    }
+}
+
+void Engine::checkForNinjaFight(){
+    //check if battles available--------------------
+    int map[actualMap->getH()][actualMap->getW()];
+
+    for(int i=0;i<actualMap->getH();i++){
+        for(int j=0;j<actualMap->getW();j++){
+            map[i][j] = 0;
+            for(int k=0;k<actualMap->getStartPoint().size();k++){
+                if(ninjaData[k]->getX() == i && ninjaData[k]->getY() == j){
+                    map[i][j]++;
+                }
+            }
+            if(map[i][j] > 1){
+                int strongestNinjaID = -1;
+                for(int k=0;k<actualMap->getStartPoint().size();k++){
+                    if(ninjaData[k]->getX() == i && ninjaData[k]->getY() == j && ninjaData[k]->getAlive() == true){
+                        if(strongestNinjaID == -1){
+                            strongestNinjaID = k;
+                        }else{
+                            int cmp = compareStrength(ninjaData[strongestNinjaID]->calcStrength(), ninjaData[k]->calcStrength());
+                            if(cmp == 2){
+                                ninjaData[strongestNinjaID]->setAlive(false);
+                                strongestNinjaID = k;
+                                ninjaData[k]->setIsFight(true);
+                            }
+                            if(cmp == 1){
+                                ninjaData[k]->setAlive(false);
+                                ninjaData[strongestNinjaID]->setIsFight(true);
+                            }
+                            if(cmp == 0){
+                                if(ninjaData[k]->calcStrength() == 0){
+                                    ninjaData[k]->setAlive(false);
+                                    ninjaData[strongestNinjaID]->setAlive(false);
+                                }
+                                if(ninjaData[k]->calcStrength() == 1){
+                                    ninjaData[strongestNinjaID]->setIsFight(true);
+                                    ninjaData[k]->setIsFight(true);
+                                }
+                                if(ninjaData[k]->calcStrength() == 2){
+                                    ninjaData[k]->setAlive(false);
+                                    ninjaData[strongestNinjaID]->setAlive(false);
+                                }
+                                if(ninjaData[k]->calcStrength() == 3){
+                                    ninjaData[strongestNinjaID]->setIsFight(true);
+                                    ninjaData[k]->setIsFight(true);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    //----------------------------------------------
+    for(int k=0;k<actualMap->getStartPoint().size();k++){//reduce alive ninjas shuriken count by one
+        if(ninjaData[k]->getAlive() == true && ninjaData[k]->getIsFight() == true && ninjaData[k]->getShurikens() > 0){
+            ninjaData[k]->throwShuriken();
+        }
+    }
+}
+
 void Engine::checkNextStep(NinjaData * ninjaData)
 {
     shuriken = false;
@@ -596,28 +667,6 @@ void Engine::checkNextStep(NinjaData * ninjaData)
 
     move = false;
     if(shuriken == false){
-        switch(ninjaData->getDirection()){
-            case 3:{
-                //west
-                moveAction(ninjaData, "WEST");
-                break;
-            }
-            case 0:{
-                //south
-                moveAction(ninjaData, "SOUTH");
-                break;
-            }
-            case 1:{
-                //east
-                moveAction(ninjaData, "EAST");
-                break;
-            }
-            case 2:{
-                //north
-                moveAction(ninjaData, "NORTH");
-                break;
-            }
-        }
         changeDirection = true;
         while(changeDirection == true){//change direction to make moving possible
             changeDirection = false;
@@ -642,6 +691,28 @@ void Engine::checkNextStep(NinjaData * ninjaData)
                     changeMoveDirection(ninjaData, "NORTH","EAST","WEST");
                     break;
                 }
+            }
+        }
+        switch(ninjaData->getDirection()){
+            case 3:{
+                //west
+                moveAction(ninjaData, "WEST");
+                break;
+            }
+            case 0:{
+                //south
+                moveAction(ninjaData, "SOUTH");
+                break;
+            }
+            case 1:{
+                //east
+                moveAction(ninjaData, "EAST");
+                break;
+            }
+            case 2:{
+                //north
+                moveAction(ninjaData, "NORTH");
+                break;
             }
         }
     }
@@ -786,12 +857,21 @@ void Engine::drawMap()
     cout << endl;
     for(int i=0;i<actualMap->getH();i++){
         for(int j=0;j<actualMap->getW();j++){
+            bool isDraw = false;
             for(int k=0;k<actualMap->getStartPoint().size();k++){
                 if(ninjaData[k]->getX() == i && ninjaData[k]->getY() == j){
-                    cout << '@';
-                }else{
-                    cout << actualMap->getMap()[i][j];
+                    if(isDraw == false){
+                        if(ninjaData[k]->getAlive()){
+                            cout << '@';
+                        }else{
+                            cout << '!';
+                        }
+                        isDraw = true;
+                    }
                 }
+            }
+            if(isDraw == false){
+                cout << actualMap->getMap()[i][j];
             }
         }
         cout << endl;
@@ -809,8 +889,14 @@ void Engine::update()
             checkBombs();//bonus 1
 
             drawMap();//testing purposes
+
+            checkForNinjaFight();//bonus 2
+
             for(int i=0;i<actualMap->getStartPoint().size();i++){//bonus 2
-                checkNextStep(ninjaData[i]);
+                if(ninjaData[i]->getAlive() == true && ninjaData[i]->getIsFight() == false){
+                    checkNextStep(ninjaData[i]);
+                }
+                ninjaData[i]->setIsFight(false);
             }
 
             if(prevSteps.size() > 0){

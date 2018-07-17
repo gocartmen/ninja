@@ -46,6 +46,9 @@ private:
     void detonate(int ID);
     void earlyExplode(int x, int y, int actualBombID);
     void ninjaKill(NinjaData *ninjaData, int i, int j);
+
+    void checkForNinjaFight();
+    int compareStrength(int first, int second);
 public:
     Engine();
     ~Engine();

@@ -18,6 +18,8 @@ private:
     bool breakerMode = false;
     bool alive = true;
     bool isPlayer = false;
+
+    bool isFight = false;
 public:
     NinjaData();
     NinjaData(int x, int y);
@@ -25,6 +27,8 @@ public:
     void throwShuriken();
     void changeDirection();
     void addShuriken();
+
+    int calcStrength();
 
     int getDirection() const;
     void setDirection(int value);
@@ -41,6 +45,8 @@ public:
     void setAlive(bool value);
     bool getIsPlayer() const;
     void setIsPlayer(bool value);
+    bool getIsFight() const;
+    void setIsFight(bool value);
 };
 
 #endif // NINJADATA_H

@@ -75,6 +75,16 @@ void NinjaData::setIsPlayer(bool value)
     isPlayer = value;
 }
 
+bool NinjaData::getIsFight() const
+{
+    return isFight;
+}
+
+void NinjaData::setIsFight(bool value)
+{
+    isFight = value;
+}
+
 NinjaData::NinjaData()
 {
 
@@ -113,4 +123,21 @@ void NinjaData::changeDirection()
 void NinjaData::addShuriken()
 {
     shurikens++;
+}
+
+int NinjaData::calcStrength()
+{
+    if(shurikens > 0){
+        if(breakerMode == true){
+            return 3;
+        }else{
+            return 1;
+        }
+    }else{
+        if(breakerMode == true){
+            return 2;
+        }else{
+            return 0;
+        }
+    }
 }
