@@ -33,7 +33,7 @@ private:
     bool changeDirection;
 
     void setNewDirection(NinjaData *ninjaData, int x, int y);
-    void secretPaths(NinjaData *ninjaData, int x, int y);
+    void secretPaths(NinjaData *ninjaData);
     bool loopDetection();
     void drawMap();
 
