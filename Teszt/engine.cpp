@@ -8,6 +8,9 @@ Engine::Engine()
 
     cout << "Your Ninja name is: " << ninjaName << endl;
 
+    cout << endl << "Do you wish to show map in every turn? (0, 1)  :  ";
+    cin >> showMap;
+
     mapLoader = new MapLoader();
 
     actualMap = mapLoader->getMap(actualMapNum);
@@ -888,7 +891,9 @@ void Engine::update()
         while(isFinished == false){
             checkBombs();//bonus 1
 
-            drawMap();//testing purposes
+            if(showMap){
+                drawMap();//testing purposes
+            }
 
             checkForNinjaFight();//bonus 2
 

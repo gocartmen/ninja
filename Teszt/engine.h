@@ -24,6 +24,8 @@ private:
     int actualMapNum = 0;//first map to start
     bool mapSolvable = true;//have to check if map is solvable
 
+    bool showMap = false;
+
     bool isFinished = false;
 
     bool move;
