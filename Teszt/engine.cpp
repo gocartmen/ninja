@@ -7,9 +7,12 @@ Engine::Engine()
     string ninjaName = nameGen->generateName();
 
     cout << "Your Ninja name is: " << ninjaName << endl;
-
-    cout << endl << "Do you wish to show map in every turn? (0, 1)  :  ";
-    cin >> showMap;
+    string answer = " ";
+    while(answer[0] != '0' && answer[0] != '1'){
+        cout << endl << "Do you wish to show map in every turn? (0, 1)  :  ";
+        cin >> answer;
+        showMap = atoi(answer.c_str());
+    }
 
     mapLoader = new MapLoader();
 
