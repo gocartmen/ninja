@@ -480,6 +480,7 @@ void Engine::moveAction(NinjaData * ninjaData, string direction){
             if(ninjaData->getIsPlayer()){
                 prevSteps.push_back(direction[0]);
             }
+            ninjaData->setLastStep(direction[0]);
             break;
         }
         case 'M':{
@@ -491,6 +492,7 @@ void Engine::moveAction(NinjaData * ninjaData, string direction){
             if(ninjaData->getIsPlayer()){
                 prevSteps.push_back('M');
             }
+            ninjaData->setLastStep('M');
             break;
         }
         case '*':{
@@ -505,6 +507,7 @@ void Engine::moveAction(NinjaData * ninjaData, string direction){
             if(ninjaData->getIsPlayer()){
                 prevSteps.push_back('*');
             }
+            ninjaData->setLastStep('*');
             break;
         }
         case 'B':{
@@ -520,6 +523,7 @@ void Engine::moveAction(NinjaData * ninjaData, string direction){
             if(ninjaData->getIsPlayer()){
                 prevSteps.push_back('B');
             }
+            ninjaData->setLastStep('B');
             break;
         }
     }

@@ -20,6 +20,7 @@ private:
     bool isPlayer = false;
 
     bool isFight = false;
+    char lastStep = '';
 public:
     NinjaData();
     NinjaData(int x, int y);
@@ -47,6 +48,8 @@ public:
     void setIsPlayer(bool value);
     bool getIsFight() const;
     void setIsFight(bool value);
+    char getLastStep() const;
+    void setLastStep(char value);
 };
 
 #endif // NINJADATA_H
