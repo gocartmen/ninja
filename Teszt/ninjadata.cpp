@@ -85,6 +85,16 @@ void NinjaData::setIsFight(bool value)
     isFight = value;
 }
 
+char NinjaData::getLastStep() const
+{
+    return lastStep;
+}
+
+void NinjaData::setLastStep(char value)
+{
+    lastStep = value;
+}
+
 NinjaData::NinjaData()
 {
 

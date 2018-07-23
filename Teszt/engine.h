@@ -51,6 +51,7 @@ private:
 
     void checkForNinjaFight();
     int compareStrength(int first, int second);
+    void putUpShuriken();
 public:
     Engine();
     ~Engine();

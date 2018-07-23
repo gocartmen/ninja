@@ -645,6 +645,11 @@ void Engine::checkForNinjaFight(){
                 int strongestNinjaID = -1;
                 for(int k=0;k<actualMap->getStartPoint().size();k++){
                     if(ninjaData[k]->getX() == i && ninjaData[k]->getY() == j && ninjaData[k]->getAlive() == true){
+                        if(ninjaData[k]->getLastStep() == '*'){
+                            ninjaData[k]->throwShuriken();
+                            ninjaData[k]->setLastStep(' ');
+                            actualMap->setMap(i, j, '*');
+                        }
                         if(strongestNinjaID == -1){
                             strongestNinjaID = k;
                         }else{
@@ -901,6 +906,16 @@ void Engine::drawMap()
     cout << endl;
 }
 
+void Engine::putUpShuriken()
+{
+    for(int i=0;i<actualMap->getStartPoint().size();i++){
+        if(ninjaData[i]->getAlive() == true && actualMap->getMap()[ninjaData[i]->getX()][ninjaData[i]->getY()] == '*' && ninjaData[i]->getIsFight() == false){
+            actualMap->setMap(ninjaData[i]->getX(), ninjaData[i]->getY(), ' ');
+            ninjaData[i]->addShuriken();
+        }
+    }
+}
+
 void Engine::update()
 {
     string answer;
@@ -915,6 +930,8 @@ void Engine::update()
             }
 
             checkForNinjaFight();//bonus 2
+
+            putUpShuriken();
 
             for(int i=0;i<actualMap->getStartPoint().size();i++){//bonus 2
                 if(ninjaData[i]->getAlive() == true && ninjaData[i]->getIsFight() == false){

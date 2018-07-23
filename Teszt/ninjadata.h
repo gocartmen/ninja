@@ -20,7 +20,7 @@ private:
     bool isPlayer = false;
 
     bool isFight = false;
-    char lastStep = '';
+    char lastStep = ' ';
 public:
     NinjaData();
     NinjaData(int x, int y);
